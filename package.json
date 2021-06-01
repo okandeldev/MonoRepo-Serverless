@@ -1,0 +1,55 @@
+{
+  "name": "pharma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "lerna run start",
+    "test": "jest",
+    "new-version": "lerna version --conventional-commits --yes",
+    "diff": "lerna run start",
+    "node-start": "node server.js",
+    "node-server": "nodemon server.js NODE_ENV=dev",
+    "node-client": "npm start --prefix client",
+    "dev": "concurrently \"npm run node-server\" \"npm run node-client\"",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
+    "helm-lint-all": "lerna run ci-helm-lint",
+    "build-all": "lerna run ci-package",
+    "push-all": "lerna run ci-push",
+    "deploy-all": "lerna run ci-deploy"
+  },
+  "author": "Softmills",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "services/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.22.1",
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^5.5.1"
+  },
+  "dependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "awilix": "^4.3.4",
+    "babel-jest": "^27.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "custom-env": "^2.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jest": "^27.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "localize": "^0.4.7",
+    "mongoose": "^5.12.5",
+    "mysql2": "^2.2.5",
+    "node-fetch": "^2.6.1",
+    "pg": "^8.2.1",
+    "pg-hstore": "^2.3.3",
+    "request": "^2.88.2",
+    "sequelize": "^5.21.12"
+  }
+}

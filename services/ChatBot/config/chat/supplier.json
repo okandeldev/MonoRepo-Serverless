@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "stepNo": 1,
+    "parent_id": null,
+    "type": "receive",
+    "description": "New message received",
+    "message": {
+      "key": "S_chatbot_checkNewMessageReceived",
+      "params": []
+    },
+    "fn": "checkNewMessageReceived"
+  },
+  {
+    "id": 2,
+    "stepNo": 2,
+    "parent_id": [1],
+    "type": "send",
+    "description": "Not registered",
+    "message": {
+      "key": "S_chatbot_notRegistered",
+      "params": [
+        "contacts_url"
+      ]
+    },
+    "fn": "notRegistered"
+  },
+  {
+    "id": 3,
+    "stepNo": 3,
+    "parent_id": [1],
+    "type": "send",
+    "description": "Send request of offer",
+    "message": {
+      "key": "S_chatbot_sendRequestOfOffer",
+      "params": [
+        "company_name",
+        "contact_url",
+        "pharmacy_name",
+        "products_count",
+        "offer_url"
+      ]
+    },
+    "fn": "sendRequestOfOffer"
+  },
+  {
+    "id": 4,
+    "stepNo": 4,
+    "parent_id": [1],
+    "type": "send",
+    "description": "Send approving offer",
+    "message": {
+      "key": "S_chatbot_sendApprovingOffer",
+      "params": [
+        "company_name",
+        "contact_url",
+        "pharmacy_name",
+        "order_number",
+        "order_url"
+      ]
+    },
+    "fn": "sendApprovingOffer"
+  },
+  {
+    "id": 5,
+    "stepNo": 5,
+    "parent_id": [1],
+    "type": "send",
+    "description": "Send updating status request",
+    "message": {
+      "key": "S_chatbot_sendUpdatingStatusRequest",
+      "params": [
+        "company_name",
+        "contact_url",
+        "pharmacy_name",
+        "order_number",
+        "order_status_url"
+      ]
+    },
+    "fn": "sendUpdatingStatusRequest"
+  }
+]
