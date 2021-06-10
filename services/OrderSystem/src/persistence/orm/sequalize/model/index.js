@@ -47,7 +47,7 @@ import { PharmacyUser} from "./pharmacyuser"
 import { Supplier} from "./supplier"
 import { SupplierUser} from "./supplieruser"
 import { Cart} from "./cart"
-import { CartItem} from "./cartItem" 
+import { CartItem} from "./cartitem" 
 import { Order} from "./order"
 import { Request} from "./request"
 
