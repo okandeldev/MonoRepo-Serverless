@@ -1,0 +1,11 @@
+const path = require('path'); 
+require('dotenv').config();
+require('custom-env').env();
+
+module.exports = {
+  'env': process.env.NODE_ENV,
+  'config': path.resolve('src/persistence/orm/sequalize/config', 'config.js'),
+  'migrations-path': path.resolve('src/persistence/orm/sequalize', 'migrations'),
+  'seeders-path': path.resolve('src/persistence/orm/sequalize', 'seeders'),
+  'models-path': path.resolve('src/persistence/orm/sequalize', 'models')
+}

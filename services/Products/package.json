@@ -1,0 +1,44 @@
+{
+  "name": "services.products",
+  "version": "0.0.1",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "serverless invoke local -f getOrders",
+    "test": "serverless-bundle test",
+    "ci-helm-lint": "eslint --fix-dry-run"
+  }, 
+  "devDependencies": {
+    "babel-plugin-source-map-support": "^2.1.3",
+    "eslint": "^7.28.0",
+    "concurrently": "^5.2.0", 
+    "sequelize-cli": "^6.2.0",
+    "serverless-bundle": "4.3.1",
+    "serverless-dotenv-plugin": "^3.9.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "awilix": "^4.3.4",
+    "aws-sdk": "^2.922.0",
+    "babel-jest": "^27.0.1",
+    "babel-loader": "^8.2.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "custom-env": "^2.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jest": "^27.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "localize": "^0.4.7",
+    "mongoose": "^5.12.5",
+    "mysql2": "^2.2.5",
+    "node-fetch": "^2.6.1",
+    "request": "^2.88.2",
+    "sequelize": "^6.6.2",
+    "serverless-http": "^2.7.0",
+    "source-map-support": "^0.5.19"
+  }
+}

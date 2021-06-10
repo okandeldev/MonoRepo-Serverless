@@ -1,0 +1,77 @@
+# NOTE: update this with your service name
+service: service-products
+useDotenv: true
+
+# Create an optimized package for our functions 
+package:
+  individually: true
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-bundle # Package our functions with Webpack
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: us-east-1
+  lambdaHashingVersion: 20201221
+  # To load environment variables externally
+  # rename env.example to .env and uncomment
+  # the following line. Also, make sure to not
+  # commit your .env.
+  #
+  #environment:
+  #  SAMPLE_ENV_VAR: ${env:SAMPLE_ENV_VAR}
+
+functions:
+  app:
+    handler: app.handler
+    events:
+      - http: ANY /
+      - http: 'ANY /{proxy+}'
+ 
+custom:
+  bundle:
+      ignorePackages: 
+        - pg-hstore
+        - mongodb-client-encryption
+  dotenv:
+    # default: project root
+    #path: path/to/my/dotenvfiles
+
+    # if set, ignores `path` option, and only uses the dotenv file at this location
+    # basePath: path/to/my/.env
+
+    # if set, uses provided dotenv parser function instead of built-in function
+    # dotenvParser: dotenv.config.js
+
+    # default: adds all env variables found in your dotenv file(s)
+    # this option must be set to `[]` if `provider.environment` is not a literal string
+    include:
+      - DDB_TABLE
+      - S3_BUCKET
+
+    # default: does not exclude any env variables found in your dotenv file(s)
+    # does nothing if `include` is set
+    exclude:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_SESSION_TOKEN
+      - NODE_ENV              # Can not be declared for Google Cloud Functions
+
+    # defaults to `true`
+    logging: false
+
+    # default: plugin does not cause an error if any file or env variable is missing
+    required:
+      # default: []
+      env:
+        - API_KEY
+
+      # default: false
+      file: true
+
+    # default: true
+    variableExpansion: false
