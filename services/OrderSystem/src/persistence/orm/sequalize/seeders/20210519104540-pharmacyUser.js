@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('pharmacyusers', [{
+    return queryInterface.bulkInsert('PharmacyUsers', [{
       pharmacyId: 1,
       userName: 'ali',
       email: 'ali@hmail.com',
@@ -38,6 +38,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('pharmacyusers', null, {});
+    return queryInterface.bulkDelete('PharmacyUsers', null, {});
   }
 };
