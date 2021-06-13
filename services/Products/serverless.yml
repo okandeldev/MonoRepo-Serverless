@@ -37,7 +37,6 @@ custom:
       ignorePackages: 
         - pg-hstore
         - mongodb-client-encryption
-        - mysql2
   dotenv:
     # default: project root
     #path: path/to/my/dotenvfiles
@@ -50,7 +49,7 @@ custom:
 
     # default: adds all env variables found in your dotenv file(s)
     # this option must be set to `[]` if `provider.environment` is not a literal string
-    include: `[]`
+    # include: `[]`
 
     # default: does not exclude any env variables found in your dotenv file(s)
     # does nothing if `include` is set
