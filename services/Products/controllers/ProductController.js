@@ -10,7 +10,7 @@ export class ProductController {
       
       res.send({
         statusCode: 200,
-        body: process.env.DB1_NAME,
+        body: products,
       })
   }
 } 
