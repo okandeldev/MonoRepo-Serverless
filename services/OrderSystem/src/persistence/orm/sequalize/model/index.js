@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
+const mysql2 = require("mysql2");
 const config = {
   username: process.env.DB2_USERNAME,
   password: process.env.DB2_PASSWORD,
@@ -16,6 +17,7 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {  
+  config.dialectModule = mysql2
   sequelize = new Sequelize(
     config.database,
     config.username,
