@@ -36,6 +36,7 @@ custom:
       ignorePackages: 
         - pg-hstore
         - mongodb-client-encryption
+        - mysql2
   dotenv:
     # default: project root
     #path: path/to/my/dotenvfiles
