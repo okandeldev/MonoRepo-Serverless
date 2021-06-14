@@ -11,8 +11,12 @@ export class chatBotService {
   // Params  :   mobile = user mobile
   // returns :  Pharmacy/Supplier User Object
   async getUserByPhone(mobile) {    
-    const payload = `{ "mobile" : ${mobile} }`; 
-    const result = await invokeLambda(constants.serverless.Services.OrderSystem,'/user', payload); 
+    const payload = { "mobile" : mobile }; 
+    const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
+      endpoint:'/user',
+      httpMethod:'GET',
+      query:payload
+    }); 
     console.log('result: ', result); 
     return result; 
   } 
@@ -22,7 +26,11 @@ export class chatBotService {
   */
   async SearchProductsAndSuggestions(keyword) {
     const payload = `{ "keyword" : ${keyword} }`; 
-    const result = await invokeLambda(constants.serverless.Services.Products,'/', payload); 
+    const result = await invokeLambda(constants.serverless.Services.Products,{
+      endpoint:'/',
+      httpMethod:'GET',
+      query:payload
+    }); 
     console.log('result: ', result); 
     return result; 
   }
@@ -32,7 +40,11 @@ export class chatBotService {
   */
  async getPhamarcyUserCart(pharmacyUserId) { 
   const payload = `{ "pharmacyUserId" : ${pharmacyUserId} }`; 
-  const result = await invokeLambda(constants.serverless.Services.OrderSystem,'/', payload); 
+  const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
+    endpoint:'/user',
+    httpMethod:'GET',
+    query:payload
+  }); 
   console.log('result: ', result); 
   return result; 
 } 
