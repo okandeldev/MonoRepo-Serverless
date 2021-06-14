@@ -10,6 +10,7 @@ export class UserController {
     res.send({
       statusCode: 200, 
       user: user,
+      req:req
     }) 
   }
 } 
