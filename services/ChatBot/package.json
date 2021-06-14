@@ -4,7 +4,8 @@
   "main": "main.js",
   "license": "MIT",
   "scripts": {
-    "start": "serverless invoke local -f app",
+    "dev": "nodemon --exec babel-node app.js",
+    "start": "serverless invoke local -f getOrders",
     "test": "serverless-bundle test",
     "ci-helm-lint": "eslint --fix-dry-run"
   }, 
@@ -12,13 +13,14 @@
     "babel-plugin-source-map-support": "^2.1.3",
     "eslint": "^7.28.0",
     "concurrently": "^5.2.0", 
-    "sequelize-cli": "^6.2.0",
+    "sequelize-cli": "^6.2.0", 
     "serverless-bundle": "4.3.1", 
     "serverless-offline": "^7.0.0",
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
     "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.5",
     "@babel/preset-env": "^7.14.2",
     "awilix": "^4.3.4",
     "aws-sdk": "^2.922.0",
