@@ -26,7 +26,7 @@ export class cartRepository extends cartRepositoryBase {
     })
     return res.map((item)=>{
       let cartObj = new cart(item.id,item) 
-      cartObj.cartItems = item.CartItems;
+      cartObj.CartItems = item.CartItems;
       return cartObj; 
     }) 
   } 
