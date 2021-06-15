@@ -9,8 +9,7 @@ export class UserController {
     const user = await this.userService.getUserByPhone(mobile)
     res.send({
       statusCode: 200, 
-      user: user,
-      req:req
+      user: user
     }) 
   }
 } 
