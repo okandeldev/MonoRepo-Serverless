@@ -46,8 +46,9 @@ export class pharmacyUserRepository extends pharmacyUserRepositoryBase  {
       if (!res){
         return null;
       }
-      let pharmacyUserObj = new pharmacyUser(res.id, res);
-      pharmacyUserObj.Cart = res.Cart;
+      let pharmacyUserObj = new pharmacyUser(res.id, res); 
+      pharmacyUserObj.Pharmacy = res.Pharmacy;
+      pharmacyUserObj.Cart = res.Cart; 
       pharmacyUserObj.Request = res.Request;  
       return pharmacyUserObj;
 

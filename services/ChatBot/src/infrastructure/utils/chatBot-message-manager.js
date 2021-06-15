@@ -1,6 +1,6 @@
 require('custom-env').env();   
 const {constants} = require('../config/constants'); 
-const functions = require('./functions');
+const functions = require('./functions/index');
 const {apiChatSendMessage} = require("./third-party/chat-api");
 const  chatbotPharmacyConfig = require("../config/chat-functions/pharmacy.json");
 
@@ -34,7 +34,7 @@ function initiateChatTextMessageWithParameters(languageCode,{message},otherMessa
 // search Chat Config Json
 // Params  :   key = Message Identifier,stepNo
 // returns :  Pharmacy/Supplier User Object
-export let getChatConfig = function ({key,stepNo}){ 
+export function getChatConfig({key,stepNo}){ 
     const res = chatbotPharmacyConfig.filter((x)=> {
         let match = false;
         if ((key || stepNo))
@@ -53,7 +53,7 @@ export let getChatConfig = function ({key,stepNo}){
     if (res.length == 1){
         return res[0]
     }
-    throw (`ksy:${key} or stepNo:${stepNo} chat Configuration is not defined`)
+    throw (`key:${key} or stepNo:${stepNo} chat Configuration is not defined`)
 } 
 
 // analyze chat text message, match chatConfig  and excute chatConfig function 
@@ -63,6 +63,9 @@ export let processRecivedMessage = async function (recivedChatTextMessage,chatSe
     const { chatId , languageCode } = chatSessionData;  
     const chatConfig = getChatConfig({stepNo:chatSessionData.stepNo})
     const {fn} = chatConfig
+    console.log('00000000',chatConfig);
+    console.log('1111111111',fn);
+    console.log('22222',functions[fn]);
     if (functions[fn]){ 
         const chatSessionDataOutput = await functions[fn](recivedChatTextMessage,chatSessionData)
         return chatSessionDataOutput;
@@ -71,5 +74,5 @@ export let processRecivedMessage = async function (recivedChatTextMessage,chatSe
         //commonChatBotMessageParam.pharmacy_name
         const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode,chatConfig)
         await apiChatSendMessage('message', {chatId: chatId, body: chatReplyTextMessage}); 
-    }
+    } 
 };

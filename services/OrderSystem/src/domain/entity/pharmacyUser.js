@@ -1,8 +1,12 @@
-require('custom-env').env();   
+require('custom-env').env();
+import { base } from "./base"
+import { cart } from "./cart"
+import { request } from "./request"
    
-export class pharmacyUser{
+export class pharmacyUser extends base{
 
   constructor(id , {pharmacyId, userName, email, password, mobile, active}) {
+    super()
     this.id = id;
     this.pharmacyId = pharmacyId;
     this.userName = userName;
@@ -18,7 +22,9 @@ export class pharmacyUser{
      return this.#cart;
    } 
    set Cart (value) { 
-     this.#cart = {...value};
+     let cartObj = new cart(value.id,value)
+     cartObj.CartItems = value.CartItems;
+     this.#cart = cartObj;
    }
 
    // Cart Items Count 
@@ -31,13 +37,13 @@ export class pharmacyUser{
     return this.#request;
   } 
   set Request (value) { 
-    this.#request = {...value};
+    // let requestObj = new request(value.id,value) 
+    // this.#request = requestObj;
   }
 
   // Requests Count
   #requestsCount = 0;
   get RequestsCount () { 
     return this.#requestsCount;
-  }
-
+  } 
 }; 

@@ -1,6 +1,5 @@
 require('custom-env').env();
-const {processRecivedMessage} = require('../src/infrastructure/utils/chatBot-message-manager')
-const {invokeLambda} = require('../../../libs/serverless/invokeLambda')  
+const {processRecivedMessage} = require('../src/infrastructure/utils/chatBot-message-manager') 
 export class ChatAPIController {
   constructor({ chatBotService}) { 
     this.chatBotService = chatBotService;
@@ -16,7 +15,7 @@ export class ChatAPIController {
         const chatId = data.messages[i].id;
         const senderName = data.messages[i].senderName;
         if(data.messages[i].fromMe)return; 
-  
+
         let chatSessionData = await this.chatBotService.getAuthorChatBotSessionData(chatId,author,mobile);
         chatSessionData = chatSessionData || {stepNo:2,chatId:chatId}
         const updatedChatSessionData = await processRecivedMessage(body,chatSessionData); 
@@ -27,7 +26,6 @@ export class ChatAPIController {
     res.send({
       statusCode: 200,
       body: data,
-      env: process.env.AWS_accessKeyId
     }) 
   }
 }

@@ -5,7 +5,7 @@ export let localization = new Localize({
     //====Pharmacy====
     //================
     "P_chatbot_checkNewMessageReceived": {
-        "en-us": "",
+        "en-us": "checkNeMessagReceived",
         "ar": ""
     },
     "P_chatbot_notRegistered": {

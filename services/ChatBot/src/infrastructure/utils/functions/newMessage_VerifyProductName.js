@@ -1,13 +1,13 @@
-const {getChatConfig} = require('../utils/chatBot-message-manager') 
+const {getChatConfig} = require('../chatBot-message-manager')
 const container = require('../../config/di-setup')
-const {invokeLambda} = require('../src/infrastructure/serverless/invokeLambda')
+
 // Params  :  recivedChatTextMessage , chatSessionData
 // returns :  {
 //    nextStepChatConfig =  Chat Step Config
 //    replyMessageParameters =  Reply Chat Message Parameters
 //    chatSessionData =  Update chatSessionData with next step
 //  }
-module.exports = async function (recivedChatTextMessage,chatSessionData) {
+export async function newMessage_VerifyProductName (recivedChatTextMessage,chatSessionData) {
     const {user ,chatId} = {...chatSessionData} 
     
     let replyMessageParameters = {}

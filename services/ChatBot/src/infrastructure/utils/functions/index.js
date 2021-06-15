@@ -1,5 +1,5 @@
-const checkNewMessageReceived = require('./checkNewMessageReceived')
-const newMessage_VerifyProductName = require('./newMessage_VerifyProductName')
+import {checkNewMessageReceived} from './checkNewMessageReceived'
+import {newMessage_VerifyProductName} from './newMessage_VerifyProductName'
 
 // Each Function
 // Params  :  recivedChatTextMessage , chatSessionData
@@ -8,8 +8,7 @@ const newMessage_VerifyProductName = require('./newMessage_VerifyProductName')
 //    replyMessageParameters =  Reply Chat Message Parameters
 //    chatSessionData =  Update chatSessionData with next step
 //  }
-var functions = {  
+export {  
     checkNewMessageReceived,
     newMessage_VerifyProductName, 
 }
-module.exports = functions;

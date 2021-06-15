@@ -12,13 +12,14 @@ export class chatBotService {
   // returns :  Pharmacy/Supplier User Object
   async getUserByPhone(mobile) {    
     const payload = { "mobile" : mobile }; 
-    const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
+    let result = await invokeLambda(constants.serverless.Services.OrderSystem,{
       endpoint:'/user',
       httpMethod:'GET',
       query:payload
     }); 
-    console.log('result: ', result); 
-    return result; 
+    const body = JSON.parse(JSON.parse(result.Payload).body)
+    console.log('result user: ', body.user); 
+    return body.user; 
   } 
 
   /*
@@ -60,7 +61,7 @@ export class chatBotService {
         if (user.type == constants.userType.pharmatcyUser)
         {
           chatData = {
-            pharmacyId: user.Pharmacy.id,
+            pharmacyId: user.pharmacyId,
             pharmacyUserId:user.id,
             author:author,
             chatId:chatId,
@@ -70,11 +71,11 @@ export class chatBotService {
             userType:constants.userType.pharmatcyUser,
             user:user
           }
-          await this.mongoDao.insertOne(chatData);
+          await this.mongoDao.insertOne(constants.mongoCollections.chatBotSession,chatData);
         }else if (user.type == constants.userType.supplierUser)
         {
           chatData = {
-            supplierId:user.Supplier.id,
+            supplierId:user.supplierId,
             supplierUserId:user.id,
             author:author, 
             chatId:chatId,
@@ -87,6 +88,7 @@ export class chatBotService {
         }
       }
     } 
+    chatData.chatId = chatId;
     return chatData; 
   } 
 

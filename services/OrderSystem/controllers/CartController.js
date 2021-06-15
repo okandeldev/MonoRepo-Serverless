@@ -10,7 +10,7 @@ export class CartController {
     const cart = await  this.cartService.getPhamarcyUserCart(pharmacyUserId);  
     res.send({
       statusCode: 200,
-      body: cart,
+      body: cart.toJSON(),
     }) 
   }
 }
