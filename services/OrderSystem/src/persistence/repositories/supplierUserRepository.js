@@ -36,7 +36,7 @@ export class supplierUserRepository extends supplierUserRepositoryBase  {
         return null;
       }
       const supplierUserObj = new supplierUser(res.id, res)
-      console.log('supplierUserObj',supplierUserObj, supplierUserObj.Supplier );
+      pharmacyUserObj.Supplier = res.Supplier; 
       return supplierUserObj;
     } catch (error) {
       throw(error)

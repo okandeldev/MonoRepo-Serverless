@@ -15,7 +15,7 @@ export class cartRepository extends cartRepositoryBase {
 
   //get Pharmacy User Cart & Items
   async getPhamarcyUserCart(pharmacyUserId) { 
-    const res = await this.Cart.findAll({
+    const res = await this.Cart.findOne({
       where: {
         pharmacyUserId: pharmacyUserId
       },
@@ -24,11 +24,12 @@ export class cartRepository extends cartRepositoryBase {
         as: 'CartItems'
       }],
     })
-    return res.map((item)=>{
-      let cartObj = new cart(item.id,item) 
-      cartObj.CartItems = item.CartItems;
-      return cartObj; 
-    }) 
-  } 
+    if (!res){
+      return null;
+    }
+    let cartObj = new cart(res.id,res) 
+    cartObj.CartItems = res.CartItems;
+    return cartObj; 
+  }
 
 };
