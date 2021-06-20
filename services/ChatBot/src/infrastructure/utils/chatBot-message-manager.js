@@ -28,6 +28,8 @@ function initiateChatTextMessageWithParameters(languageCode,{message},otherMessa
         const param = params[index];
         mappedParams.push(commonChatBotMessageParam[param] || otherMessageParam[param])
     } 
+    console.log('params', params);
+    console.log('mappedParams', mappedParams);
     return localization.translate(key, ...mappedParams) 
 }
 
@@ -60,19 +62,31 @@ export function getChatConfig({key,stepNo}){
 // Params  :   recivedChatTextMessage, chatSessionData
 // returns :  chatSessionData for the next step
 export let processRecivedMessage = async function (recivedChatTextMessage,chatSessionData){
-    const { chatId , languageCode } = chatSessionData;  
-    const chatConfig = getChatConfig({stepNo:chatSessionData.stepNo})
-    const {fn} = chatConfig
-    console.log('00000000',chatConfig);
-    console.log('1111111111',fn);
-    console.log('22222',functions[fn]);
-    if (functions[fn]){ 
-        const chatSessionDataOutput = await functions[fn](recivedChatTextMessage,chatSessionData)
-        return chatSessionDataOutput;
-    }else
-    {   
-        //commonChatBotMessageParam.pharmacy_name
-        const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode,chatConfig)
-        await apiChatSendMessage('message', {chatId: chatId, body: chatReplyTextMessage}); 
-    } 
+    let chatConfig 
+    if (!chatSessionData) { 
+        chatConfig = getChatConfig({key: 'P_chatbot_notRegistered'}) 
+    } else {
+        const { chatId , stepNo, languageCode } = chatSessionData;  
+        chatConfig = getChatConfig({stepNo:stepNo})
+    }
+    if (chatConfig)
+    {
+        const {fn} = chatConfig 
+        console.log('selected chat Config fn',fn);
+        if (functions[fn] && functions[fn] != ""){ 
+            const chatSessionDataOutput = await functions[fn](recivedChatTextMessage,chatSessionData)
+            if (chatSessionDataOutput?.nextStepChatConfig){  
+                const nextStepChatConfig = getChatConfig(chatSessionDataOutput?.nextStepChatConfig)
+                const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, nextStepChatConfig , chatSessionDataOutput.replyMessageParameters)
+                await apiChatSendMessage('message', {chatId: chatId, body: chatReplyTextMessage}); 
+            }
+            return chatSessionDataOutput;
+        } else
+        {  
+            const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatConfig)
+            await apiChatSendMessage('message', {chatId: chatId, body: chatReplyTextMessage});
+            return null;
+        }
+    }
+    
 };

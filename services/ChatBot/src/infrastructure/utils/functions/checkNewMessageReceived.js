@@ -1,5 +1,5 @@
 import {getChatConfig} from '../chatBot-message-manager'
-const container = require('../../config/di-setup')
+import { container, setup } from '../../config/di-setup'
 
 
 // Params  :  recivedChatTextMessage , chatSessionData
@@ -10,17 +10,15 @@ const container = require('../../config/di-setup')
 //  }
 export async function checkNewMessageReceived (recivedChatTextMessage,chatSessionData) {
     const {user ,chatId} = {...chatSessionData}  
-    console.log('userrrrrrrrrrrrrrrrrr Pharmacy', user.Pharmacy);
     const pharmacy_name = user.Pharmacy?.name;
     const requestsCount = user.RequestsCount;
     const cartItemsCount = user.CartItemsCount;
     let replyMessageParameters = {pharmacy_name}
     
     //Has order but no draft
-    if (requestsCount > 0  && cartItemsCount ==0 ){
-        const nextStepChatConfig = getChatConfig({key:'P_chatbot_hasOrderNoDraft'}) 
+    if (requestsCount > 0  && cartItemsCount ==0 ){ 
         return {
-            nextStepChatConfig,
+            nextStepChatConfig: {key:'P_chatbot_hasOrderNoDraft'},
             replyMessageParameters,
             chatSessionData:{
                 ...chatSessionData,
@@ -29,10 +27,9 @@ export async function checkNewMessageReceived (recivedChatTextMessage,chatSessio
         }
     }
     //No order and no draft
-    else  if (requestsCount ==0   && cartItemsCount ==0 ){ 
-        const nextStepChatConfig = getChatConfig({key:'P_chatbot_noOrderNoDraft'}) 
+    else  if (requestsCount ==0   && cartItemsCount ==0 ){  
         return {
-            nextStepChatConfig,
+            nextStepChatConfig: {key:'P_chatbot_noOrderNoDraft'},
             replyMessageParameters,
             chatSessionData:{
                 ...chatSessionData,
@@ -42,13 +39,14 @@ export async function checkNewMessageReceived (recivedChatTextMessage,chatSessio
     }
     //No order but has draft
     else  if (requestsCount ==0   && cartItemsCount > 0 ){  
-        const cartService = container.resolve("cartService");     
-        const cart = cartService.getPhamarcyUserCart(user.id)
-        
-        const nextStepChatConfig = getChatConfig({key:'P_chatbot_noOrderButHasDraft'})  
-        replyMessageParameters['products'] = cart.cartItems.map((item)=> item.name + '<br/>')
+        const chatBotService = container.resolve("chatBotService");     
+        const cart = await chatBotService.getPhamarcyUserCart(user.id)
+         
+        replyMessageParameters['pharmacy_name'] = user.Pharmacy.name
+        replyMessageParameters['products'] = cart.CartItems.map((item)=> + `${item.quantity} ${item.productName} \n`).join('')
+       
         return {
-            nextStepChatConfig,
+            nextStepChatConfig: {key:'P_chatbot_noOrderButHasDraft'},
             replyMessageParameters,
             chatSessionData:{
                 ...chatSessionData,

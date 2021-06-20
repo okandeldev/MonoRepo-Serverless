@@ -20,10 +20,10 @@
     "message": {
       "key": "P_chatbot_notRegistered",
       "params": [
-        "contacts_url"
+        "contactus_url"
       ]
     },
-    "fn": "notRegistered"
+    "fn": ""
   },
   {
     "id": 3,
@@ -40,7 +40,7 @@
         "contacts_url"
       ]
     },
-    "fn": "newMessage_VerifyProductName"
+    "fn": "verifyProductName"
   },
   {
     "id": 4,
@@ -56,36 +56,24 @@
         "contacts_url"
       ]
     },
-    "fn": "newMessage_VerifyProductName"
+    "fn": "verifyProductName"
   },
   {
     "id": 5,
     "stepNo": 5,
-    "parent_id": [3, 4, 12, 16],
-    "type": "send",
-    "description": "Verify entered product name",
-    "message": {
-      "key": "P_chatbot_newMessage_VerifyProductName",
-      "params": []
-    },
-    "fn": "newMessage_VerifyProductName"
-  },
-  {
-    "id": 6,
-    "stepNo": 6,
-    "parent_id": [5],
+    "parent_id": [3, 4, 10, 13],
     "type": "receive",
     "description": "Invalid product name",
     "message": {
       "key": "P_chatbot_verifyProductName_InvalidName",
       "params": []
     },
-    "fn": "verifyProductName_InvalidName"
+    "fn": "verifyProductName"
   },
   {
-    "id": 7,
-    "stepNo": 7,
-    "parent_id": [5],
+    "id": 6,
+    "stepNo": 6,
+    "parent_id": [3, 4, 10, 13],
     "type": "send",
     "description": "Product name matches many products",
     "message": {
@@ -94,24 +82,24 @@
         "products"
       ]
     },
-    "fn": "verifyProductName_NameWithManyProducts"
+    "fn": "verifyProductName"
   },
   {
-    "id": 8,
-    "stepNo": 8,
-    "parent_id": [5],
+    "id": 7,
+    "stepNo": 7,
+    "parent_id": [3, 4, 10, 13],
     "type": "send",
     "description": "Product name valid but not exists in the order",
     "message": {
       "key": "P_chatbot_verifyProductName_ValidNameButNotExistsInOrder",
       "params": []
     },
-    "fn": "verifyProductName_ValidNameButNotExistsInOrder"
+    "fn": "verifyProductQuantity"
   },
   {
-    "id": 9,
-    "stepNo": 9,
-    "parent_id": [5],
+    "id": 8,
+    "stepNo": 8,
+    "parent_id": [3, 4, 10, 13],
     "type": "send",
     "description": "Product name valid and exists in the order",
     "message": {
@@ -120,72 +108,48 @@
         "products_count"
       ]
     },
-    "fn": "verifyProductName_ValidNameAndExistsInOrder"
+    "fn": "verifyProductQuantity"
   },
   {
-    "id": 10,
-    "stepNo": 10,
-    "parent_id": [8, 9],
+    "id": 9,
+    "stepNo": 9,
+    "parent_id": [7, 8],
     "type": "send",
     "description": "Invalid entered number of boxes",
     "message": {
       "key": "P_chatbot_verifyNumber_InvalidNumber",
       "params": []
     },
-    "fn": "verifyNumber_InvalidNumber"
+    "fn": "verifyProductQuantity"
   },
   {
-    "id": 11,
-    "stepNo": 11,
-    "parent_id": [8, 9],
-    "type": "send",
-    "description": "Change the product",
-    "message": {
-      "key": "P_chatbot_verifyNumber_ChangeProduct",
-      "params": []
-    },
-    "fn": "verifyNumber_ChangeProduct"
-  },
-  {
-    "id": 12,
-    "stepNo": 12,
-    "parent_id": [11],
+    "id": 10,
+    "stepNo": 10,
+    "parent_id": [7, 8, 9],
     "type": "receive",
     "description": "Enter the new product name",
     "message": {
       "key": "P_chatbot_enterNewProductName",
       "params": []
     },
-    "fn": "enterNewProductName"
-  },
+    "fn": "verifyProductName"
+  }, 
   {
-    "id": 13,
-    "stepNo": 13,
-    "parent_id": [11],
-    "type": "receive",
-    "description": "No change in product name",
-    "message": {
-      "key": "P_chatbot_noChangeInProductName",
-      "params": []
-    },
-    "fn": "noChangeInProductName"
-  },
-  {
-    "id": 14,
-    "stepNo": 14,
-    "parent_id": [13],
+    "id": 11,
+    "stepNo": 11,
+    "parent_id": [7, 8, 9],
     "type": "send",
     "description": "Enter notes",
     "message": {
       "key": "P_chatbot_enterNotes",
       "params": []
     },
-    "fn": "enterNotes"
+    "fn": "verifyCartNote"
   },
   {
-    "id": 15,
-    "stepNo": 15,
-    "parent_id": [14],
+    "id": 12,
+    "stepNo": 12,
+    "parent_id": [11],
     "type": "send",
     "description": "Review order",
     "message": {
@@ -197,47 +161,21 @@
     "fn": "reviewOrder"
   },
   {
-    "id": 16,
-    "stepNo": 16,
-    "parent_id": [15, 20],
+    "id": 13,
+    "stepNo": 13,
+    "parent_id": [7, 8 ,9 , 15],
     "type": "receive",
-    "description": "Edit order",
+    "description": "Edit Products",
     "message": {
-      "key": "P_chatbot_editOrder",
+      "key": "P_chatbot_editProducts",
       "params": []
     },
-    "fn": "editOrder"
-  },
+    "fn": "verifyProductName"
+  }, 
   {
-    "id": 17,
-    "stepNo": 17,
-    "parent_id": [16],
-    "type": "receive",
-    "description": "Don't add new",
-    "message": {
-      "key": "P_chatbot_doNotAddNew",
-      "params": [
-        "products"
-      ]
-    },
-    "fn": "doNotAddNew"
-  },
-  {
-    "id": 18,
-    "stepNo": 18,
-    "parent_id": [16],
-    "type": "receive",
-    "description": "Add new",
-    "message": {
-      "key": "P_chatbot_addNewProductName",
-      "params": []
-    },
-    "fn": "addNewProductName"
-  },
-  {
-    "id": 19,
-    "stepNo": 19,
-    "parent_id": [15, 20],
+    "id": 14,
+    "stepNo": 14,
+    "parent_id": [12, 15],
     "type": "send",
     "description": "Confirm order",
     "message": {
@@ -249,8 +187,8 @@
     "fn": "confirmOrder"
   },
   {
-    "id": 20,
-    "stepNo": 20,
+    "id": 15,
+    "stepNo": 15,
     "parent_id": [1],
     "type": "send",
     "description": "No order but has draft",
@@ -258,17 +196,16 @@
       "key": "P_chatbot_noOrderButHasDraft",
       "params": [
         "pharmacy_name",
-        "contact_url",
+        "contactus_url",
         "create_order_url",
-        "track_order_url",
         "products"
       ]
     },
-    "fn": "noOrderButHasDraft"
+    "fn": "reviewOrder"
   },
   {
-    "id": 21,
-    "stepNo": 21,
+    "id": 16,
+    "stepNo": 16,
     "parent_id": null,
     "type": "send",
     "description": "Send supplier offer to client",
@@ -284,8 +221,8 @@
     "fn": "sendSupplierOfferToClient"
   },
   {
-    "id": 22,
-    "stepNo": 22,
+    "id": 17,
+    "stepNo": 17,
     "parent_id": null,
     "type": "send",
     "description": "Send rating order request",

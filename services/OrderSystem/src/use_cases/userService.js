@@ -22,7 +22,5 @@ export class userService {
       }
       return supplierUser; 
     }
-    return null;
   }
-  
 }  

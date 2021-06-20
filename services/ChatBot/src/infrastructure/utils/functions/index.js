@@ -1,5 +1,8 @@
 import {checkNewMessageReceived} from './checkNewMessageReceived'
-import {newMessage_VerifyProductName} from './newMessage_VerifyProductName'
+import {verifyProductName} from './verifyProductName'
+import {verifyProductQuantity} from './verifyProductQuantity'
+import {verifyCartNote} from './verifyCartNote'
+import {reviewOrder} from './reviewOrder'
 
 // Each Function
 // Params  :  recivedChatTextMessage , chatSessionData
@@ -10,5 +13,8 @@ import {newMessage_VerifyProductName} from './newMessage_VerifyProductName'
 //  }
 export {  
     checkNewMessageReceived,
-    newMessage_VerifyProductName, 
+    verifyProductName,
+    verifyProductQuantity,
+    verifyCartNote,
+    reviewOrder,
 }

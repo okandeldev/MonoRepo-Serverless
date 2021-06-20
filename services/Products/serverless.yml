@@ -6,7 +6,8 @@ useDotenv: true
 package:
   individually: true
 
-plugins: 
+plugins:
+  - serverless-dotenv-plugin
   - serverless-bundle # Package our functions with Webpack
   - serverless-offline
 
@@ -48,7 +49,9 @@ custom:
 
     # default: adds all env variables found in your dotenv file(s)
     # this option must be set to `[]` if `provider.environment` is not a literal string
-    # include: `[]`
+    include:
+      - DDB_TABLE
+      - S3_BUCKET
 
     # default: does not exclude any env variables found in your dotenv file(s)
     # does nothing if `include` is set

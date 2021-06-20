@@ -25,7 +25,7 @@ if (config.use_env_variable) {
     config);
 }
 // Todo : solve __dirname with serverless
-// console.log('111 =========================== cwd',__dirname);
+// console.log('step 1 =========================== cwd',__dirname);
 // fs.readdirSync(__dirname)
 //   .filter((file) => {
 //     return (
@@ -33,7 +33,7 @@ if (config.use_env_variable) {
 //     );
 //   })
 //   .forEach((file) => {
-//       console.log('222 ===========================',file,__dirname);
+//       console.log('step 2 ===========================',file,__dirname);
 //       if (file=='Product'){
 //         console.log('===========================');
 //         //const model = sequelize["import"](path.join(__dirname, file));

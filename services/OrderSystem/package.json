@@ -7,13 +7,15 @@
     "dev": "nodemon --exec babel-node app.js",
     "start": "serverless invoke local -f getOrders",
     "test": "serverless-bundle test",
-    "ci-helm-lint": "eslint --fix-dry-run"
-  }, 
+    "ci-helm-lint": "eslint --fix-dry-run",
+    "seed": "yarn sequelize-cli db:seed:all",
+    "migrate": "yarn sequelize-cli db:migrate"
+  },
   "devDependencies": {
     "babel-plugin-source-map-support": "^2.1.3",
     "eslint": "^7.28.0",
-    "concurrently": "^5.2.0", 
-    "sequelize-cli": "^6.2.0", 
+    "concurrently": "^5.2.0",
+    "sequelize-cli": "^6.2.0",
     "serverless-bundle": "4.3.1",
     "serverless-dotenv-plugin": "^3.9.0",
     "webpack-node-externals": "^3.0.0"

@@ -6,12 +6,11 @@ export class CartController {
   }
   async getPhamarcyUserCart(req, res) { 
     const query = req.query;
-    const pharmacyUserId = query?.pharmacyUserId; 
-    console.log('pharmacyUserId', pharmacyUserId);
+    const pharmacyUserId = query?.pharmacyUserId;  
     const cart = await  this.cartService.getPhamarcyUserCart(pharmacyUserId);  
     res.send({
       statusCode: 200,
-      data: (cart) ? cart.toJSON() : null,
+      body: (cart) ? cart.toJSON() : null,
     })
   }
 }

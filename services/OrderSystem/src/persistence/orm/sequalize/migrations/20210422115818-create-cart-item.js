@@ -14,6 +14,9 @@ module.exports = {
       productVarientId: {
         type: Sequelize.INTEGER
       },
+      productName: {
+        type: Sequelize.STRING
+      },
       quantity: {
         type: Sequelize.INTEGER
       },

@@ -6,12 +6,44 @@ module.exports = {
 
     if (!data) {
       return queryInterface.bulkInsert('Varients', [
+        //Group 1 => different sizes
         {
           optionId: 1,
           groupId: 1,
           createdAt: new Date(),
           updatedAt: new Date()
         },
+        {
+          optionId: 2,
+          groupId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          optionId: 3,
+          groupId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          optionId: 4,
+          groupId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          optionId: 5,
+          groupId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          optionId: 6,
+          groupId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        //Group 2 => different colors
         {
           optionId: 1,
           groupId: 2,
@@ -20,12 +52,30 @@ module.exports = {
         },
         {
           optionId: 2,
-          groupId: 1,
+          groupId: 2,
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          optionId: 2,
+          optionId: 3,
+          groupId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          optionId: 4,
+          groupId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          optionId: 5,
+          groupId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          optionId: 6,
           groupId: 2,
           createdAt: new Date(),
           updatedAt: new Date()

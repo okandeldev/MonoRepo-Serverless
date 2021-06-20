@@ -1,3 +1,5 @@
+import {cartItem} from "../../domain/entity/cartItem";
+
 const {Op, TableHints} = require("sequelize");
 import { cartRepository  as cartRepositoryBase} from "../../domain/repository/cartRepository"
 import { cart } from "../../domain/entity/cart"  
@@ -32,4 +34,21 @@ export class cartRepository extends cartRepositoryBase {
     return cartObj; 
   }
 
-};
+  //create cart
+  async createCart(cartData) {
+    const res = await this.Cart.create({...cartData})
+    if (!res) {
+      return null;
+    }
+    return new cart(res.id, res);
+  }
+
+  //update cart
+  async updateCart(id, cartData) {
+    const res = await this.Cart.update({...cartData}, {where: {id: id}})
+    if (!res) {
+      return null;
+    }
+    return new cart(res.id, res);
+  }
+}
