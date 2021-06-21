@@ -26,7 +26,7 @@ export class ChatAPIController {
     } 
     res.send({
       statusCode: 200,
-      body: data,
+      data: data,
     }) 
   }
 }

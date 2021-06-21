@@ -11,12 +11,12 @@ export class CartItemController {
     if (cartItem) {
       res.send({
         statusCode: 200,
-        body: cart.toJSON()
+        data: cart.toJSON()
       })
     } else {
       res.send({
         statusCode: 500,
-        body: {
+        data: {
           error: "Server error"
         },
       })
@@ -29,12 +29,12 @@ export class CartItemController {
     if (cartItem) {
       res.send({
         statusCode: 200,
-        body: cart.toJSON()
+        data: cart.toJSON()
       })
     } else {
       res.send({
         statusCode: 500,
-        body: {
+        data: {
           error: "Server error"
         },
       })

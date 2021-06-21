@@ -12,7 +12,7 @@ export class ProductVariantController {
 
     res.send({
       statusCode: 200,
-      body: product,
+      data: product,
     })
   }
 } 
