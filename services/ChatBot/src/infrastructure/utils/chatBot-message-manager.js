@@ -27,9 +27,7 @@ function initiateChatTextMessageWithParameters(languageCode,{message},otherMessa
     for (let index = 0; index < params.length; index++) {
         const param = params[index];
         mappedParams.push(commonChatBotMessageParam[param] || otherMessageParam[param])
-    } 
-    console.log('params', params);
-    console.log('mappedParams', mappedParams);
+    }
     return localization.translate(key, ...mappedParams) 
 }
 
@@ -71,8 +69,7 @@ export let processRecivedMessage = async function (recivedChatTextMessage,chatSe
     }
     if (chatConfig)
     {
-        const {fn} = chatConfig 
-        console.log('selected chat Config fn',fn);
+        const {fn} = chatConfig  
         if (functions[fn] && functions[fn] != ""){ 
             const chatSessionDataOutput = await functions[fn](recivedChatTextMessage,chatSessionData)
             if (chatSessionDataOutput?.nextStepChatConfig){  

@@ -20,7 +20,6 @@ export class ChatAPIController {
         const updatedChatSessionData = await processRecivedMessage(body,chatSessionData);
         if (chatSessionData){
           chatSessionData = updatedChatSessionData || chatSessionData
-          console.log('updateAuthorChatBotSessionData',author,chatSessionData);
           await this.chatBotService.updateAuthorChatBotSessionData(author,chatSessionData); 
         } 
     } 
