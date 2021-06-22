@@ -11,7 +11,7 @@ module.exports = {
       promotionId: {
         type: Sequelize.INTEGER
       },
-      productVarientId: {
+      productVariantId: {
         type: Sequelize.INTEGER
       },
       quantity: {

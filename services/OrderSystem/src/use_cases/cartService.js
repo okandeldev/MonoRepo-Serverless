@@ -18,6 +18,10 @@ export class cartService {
   // returns :  request Object
   async checkout(pharmacyUserId) {
     const cart = await this.cartRepository.getPhamarcyUserCart(pharmacyUserId);  
-  }   
+  }
+
+  async updateCart(cartData) {
+      return await this.cartRepository.updateCart(cartData)
+  }
 
 }  

@@ -11,7 +11,7 @@ module.exports = {
       pictureUrl: {
         type: Sequelize.STRING
       },
-      productVarientId: {
+      productVariantId: {
         type: Sequelize.INTEGER
       },
       displayOrder: {

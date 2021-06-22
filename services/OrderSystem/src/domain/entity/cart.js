@@ -2,7 +2,7 @@ require('custom-env').env();
 import { base } from "./base" 
 import { cartItem } from "./cartItem" 
    
-export class cart extends base{ 
+export class cart extends base { 
   constructor(id = null, {pharmacyUserId,note}) {
     super()
     this.id = id; 

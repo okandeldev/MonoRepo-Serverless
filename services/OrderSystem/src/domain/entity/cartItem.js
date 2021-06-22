@@ -2,11 +2,11 @@ require('custom-env').env();
 import { base } from "./base"
    
 export class cartItem extends base{ 
-  constructor(id = null, {cartId, productVarientId, productName, quantity, note}) {
+  constructor(id = null, {cartId, productVariantId, productName, quantity, note}) {
     super()
     this.id = id;  
     this.cartId = cartId; 
-    this.productVarientId = productVarientId;
+    this.productVariantId = productVariantId;
     this.productName = productName;
     this.quantity = quantity; 
     this.note = note;

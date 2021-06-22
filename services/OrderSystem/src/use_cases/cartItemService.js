@@ -13,15 +13,24 @@ export class cartItemService {
     }
 
     let cartItems = cart.CartItems;
-    cartItems.forEach((item) => {
-      if (item.productVarientId === data.cartItem.productVarientId) {
+    if (cart.CartItems.length > 0) {
+      let item_filtered = null
+      cartItems.filter(async (item) => {
+        if (item.productVariantId === data.cartItem.productVariantId) {
+          item_filtered = item
+        }
+      })
+      if (item_filtered && item_filtered.productVariantId === data.cartItem.productVariantId) { 
         //update cartItem
-        return this.cartItemRepository.updateCartItem(item.id, data.cartItem)
+        return await this.cartItemRepository.updateCartItem(item_filtered.id, data.cartItem)
       } else {
         //create cartItem
-        return this.cartItemRepository.createCartItem(data.cartItem)
+        return await this.cartItemRepository.createCartItem(data.cartItem)
       }
-    })
+    } else {
+      //create cartItem
+      return await this.cartItemRepository.createCartItem(data.cartItem)
+    }
   }
 
   async deleteCartItem(id) {

@@ -10,7 +10,7 @@ module.exports = {
       return queryInterface.bulkInsert('CartItems', [
         {
           cartId: 1,
-          productVarientId: 1,
+          productVariantId: 1,
           productName: "Product 1",
           quantity: 10,
           note: "cart item notes 1",
@@ -19,7 +19,7 @@ module.exports = {
         },
         {
           cartId: 1,
-          productVarientId: 2,
+          productVariantId: 2,
           productName: "Product 1",
           quantity: 7,
           note: "cart item notes 2",
@@ -28,7 +28,7 @@ module.exports = {
         },
         {
           cartId: 1,
-          productVarientId: 3,
+          productVariantId: 3,
           productName: "Product 2",
           quantity: 15,
           note: "cart item notes 3",
@@ -37,7 +37,7 @@ module.exports = {
         },
         {
           cartId: 2,
-          productVarientId: 1,
+          productVariantId: 1,
           productName: "Product 2",
           quantity: 20,
           note: "cart item notes 4",
@@ -46,7 +46,7 @@ module.exports = {
         },
         {
           cartId: 2,
-          productVarientId: 2,
+          productVariantId: 2,
           productName: "Product 3",
           quantity: 8,
           note: "cart item notes 5",

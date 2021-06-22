@@ -11,7 +11,7 @@ module.exports = {
       supplierId: {
         type: Sequelize.INTEGER
       },
-      productVarientId: {
+      productVariantId: {
         type: Sequelize.INTEGER
       },
       quantity: {

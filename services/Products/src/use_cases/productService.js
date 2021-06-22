@@ -12,9 +12,10 @@ export class productService {
   //    suggestedProducts
   //  }
   async SearchProductsAndSuggestions(keyword) {
-    let products = await this.productRepository.findAll(keyword); 
-    let matchedProduct = products.filter((item) => item);  
-    let suggestedProducts = products.filter((item) => item);
+    let products = await this.productRepository.findAll(keyword.trim());
+    let matchedProduct = (products.length ==1)? [products[0]] : [];  
+    let suggestedProducts = (products.length >1)? products : [];
+      
     return {
       matchedProduct,
       suggestedProducts

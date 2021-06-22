@@ -26,5 +26,12 @@ export let constants = {
       Products:"service-products-dev-app",
       OrderSystem:"service-ordersystem-dev-app"
     } 
+  },
+  ChatRecievedMessage:{
+    Accept:['ok','yes','go','right', 'اوك','تمام','نعم'],
+    Reject:['no','لأ','لا'],
+    EditProducts:['edit','تعديل'],
+    ProcessProductsToRequest:['ok','process' ,'نفذ' ,'تنفيذ'],
+
   }
 };

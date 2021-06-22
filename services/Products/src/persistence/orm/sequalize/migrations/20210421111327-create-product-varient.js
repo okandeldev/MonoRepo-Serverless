@@ -1,7 +1,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('ProductVarients', {
+    return queryInterface.createTable('ProductVariants', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,7 +11,7 @@ module.exports = {
       productId: {
         type: Sequelize.INTEGER
       },
-      varientId: {
+      variantId: {
         type: Sequelize.INTEGER
       },
       localBarcode: {
@@ -31,6 +31,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('ProductVarients');
+    return queryInterface.dropTable('ProductVariants');
   }
 };

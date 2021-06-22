@@ -1,7 +1,7 @@
 export function CartItem(sequelize, DataTypes) {
   const CartItem = sequelize.define('CartItem', {
     cartId: DataTypes.INTEGER,
-    productVarientId: DataTypes.INTEGER,
+    productVariantId: DataTypes.INTEGER,
     productName: DataTypes.STRING,
     quantity: DataTypes.INTEGER,
     note: DataTypes.STRING

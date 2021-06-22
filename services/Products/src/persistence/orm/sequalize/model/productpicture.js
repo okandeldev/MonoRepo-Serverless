@@ -1,7 +1,7 @@
 export function ProductPicture (sequelize, DataTypes) {
   const ProductPicture = sequelize.define('ProductPicture', {
     pictureUrl: DataTypes.STRING,
-    productVarientId: DataTypes.INTEGER,
+    productVariantId: DataTypes.INTEGER,
     displayOrder: DataTypes.INTEGER
   }, {});
   ProductPicture.associate = function(models) {

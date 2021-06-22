@@ -13,10 +13,10 @@ export class chatBotService {
   async getUserByPhone(mobile) {    
     const payload = { "mobile" : mobile }; 
     let result = await invokeLambda(constants.serverless.Services.OrderSystem,{
-      endpoint:'/user',
+      endpoint:'/api/user',
       httpMethod:'GET',
       query:payload
-    });  
+    });
     return JSON.parse(JSON.parse(result.Payload).body).data  
   } 
 
@@ -26,7 +26,7 @@ export class chatBotService {
   async SearchProductsAndSuggestions(keyword) {
     const payload = `{ "keyword" : ${keyword} }`; 
     const result = await invokeLambda(constants.serverless.Services.Products,{
-      endpoint:'/',
+      endpoint:'/api/product',
       httpMethod:'GET',
       query:payload
     }); 
@@ -39,7 +39,7 @@ export class chatBotService {
  async getPhamarcyUserCart(pharmacyUserId) {  
   const payload = { "pharmacyUserId" : pharmacyUserId };  
   const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
-    endpoint:'/user/cart',
+    endpoint:'/api/user/cart',
     httpMethod:'GET',
     query:payload
   });
@@ -53,7 +53,7 @@ async AddPhamarcyUserCartItem(pharmacyUserId,productVariantId,quantity,note) {
     "quantity" : quantity
   };  
   const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
-    endpoint:'/user/cart/item',
+    endpoint:'/api/user/cart/item',
     httpMethod:'POST',
     query:payload
   });
@@ -66,20 +66,20 @@ async RemovePhamarcyUserCartItem(pharmacyUserId,productVariantId) {
     "productVariantId" : productVariantId
   };  
   const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
-    endpoint:'/user/cart/item',
+    endpoint:'/api/user/cart/item',
     httpMethod:'DELETE',
     query:payload
   });
   return JSON.parse(JSON.parse(result.Payload).body).data  
 } 
 
-async SavePhamarcyUserCartNote(pharmacyUserId,note) {  
+async SavePhamarcyUserCart(id,note) {  
   const payload = { 
-    "pharmacyUserId" : pharmacyUserId, 
+    "id" : id, 
     "note" : note,  
   };  
   const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
-    endpoint:'/user/cart',
+    endpoint:'/api/user/cart',
     httpMethod:'POST',
     query:payload
   });
@@ -90,7 +90,7 @@ async checkoutPhamarcyUserCart(pharmacyUserId) {
     "pharmacyUserId" : pharmacyUserId 
   };  
   const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
-    endpoint:'/user/cart/checkout',
+    endpoint:'/api/user/cart/checkout',
     httpMethod:'POST',
     query:payload
   });

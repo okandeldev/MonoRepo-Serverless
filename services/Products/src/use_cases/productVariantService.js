@@ -1,6 +1,6 @@
 require('custom-env').env();
 
-export class productService {
+export class productVariantService {
   constructor({productVariantRepository}) {
     this.productVariantRepository = productVariantRepository;
   }

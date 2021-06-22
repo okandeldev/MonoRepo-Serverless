@@ -14,7 +14,7 @@ const orderSchema = mongoose.Schema({
         required: true
     },
     orderItems: [{
-        productVarientId: {
+        productVariantId: {
             type: Number,
             required: true
         },

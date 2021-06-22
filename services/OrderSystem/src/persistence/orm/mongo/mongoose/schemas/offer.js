@@ -10,7 +10,7 @@ const requestSchema = mongoose.Schema({
         required: true
     },
     offerItems: [{
-        productVarientId: {
+        productVariantId: {
             type: Number,
             required: true
         },

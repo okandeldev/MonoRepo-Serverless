@@ -13,4 +13,31 @@ export class CartController {
       data: (cart) ? cart.toJSON() : null,
     })
   }
+
+  async updateCart(req, res) {
+    // const data = req.apiGateway.event.body;
+    const data = req.body;
+    const cart = await this.cartService.updateCart(data);
+    if (cart) {
+      res.send({
+        statusCode: 200,
+        body: cart.toJSON()
+      })
+    } else if (cart == null) {
+      res.send({
+        statusCode: 404,
+        body: {
+          error: "Cart not found"
+        },
+      })
+    } else {
+      res.send({
+        statusCode: 500,
+        body: {
+          error: "Server error"
+        },
+      })
+    }
+  }
+
 }

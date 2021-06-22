@@ -16,13 +16,14 @@ export class ChatAPIController {
         const senderName = data.messages[i].senderName;
         if(data.messages[i].fromMe)return; 
 
-        let chatSessionData = await this.chatBotService.getAuthorChatBotSessionData(chatId,author,mobile); 
+        let chatSessionData = await this.chatBotService.getAuthorChatBotSessionData(chatId,author,mobile);
+        chatSessionData = chatSessionData ||  {chatId:chatId}   
         const updatedChatSessionData = await processRecivedMessage(body,chatSessionData);
-        if (chatSessionData){
-          chatSessionData = updatedChatSessionData || chatSessionData
-          await this.chatBotService.updateAuthorChatBotSessionData(author,chatSessionData); 
-        } 
-    } 
+        if (updatedChatSessionData){
+          // chatSessionData = updatedChatSessionData || chatSessionData
+          await this.chatBotService.updateAuthorChatBotSessionData(author,updatedChatSessionData.chatSessionData); 
+        }
+    }
     res.send({
       statusCode: 200,
       data: data,

@@ -1,5 +1,5 @@
 const {getChatConfig} = require('../chatBot-message-manager')
-const container = require('../../config/di-setup')
+import { container, setup } from '../../config/di-setup'
 
 // Params  :  recivedChatTextMessage , chatSessionData
 // returns :  {
@@ -7,17 +7,18 @@ const container = require('../../config/di-setup')
 //    replyMessageParameters =  Reply Chat Message Parameters
 //    chatSessionData =  Update chatSessionData with next step
 //  }
-export async function verifyCartItemNote (recivedChatTextMessage,chatSessionData) {
+export async function reviewOrder (recivedChatTextMessage,chatSessionData) {
     const {user ,chatId} = {...chatSessionData} 
     
     let replyMessageParameters = {} 
     const chatBotService = container.resolve("chatBotService");
-
+    console.log('reviewOrder',recivedChatTextMessage,chatSessionData);
     if (recivedChatTextMessage == '1'){
-        // Create Request
+        // Create Request 
+        const nextStepChatConfig = getChatConfig({key:'P_chatbot_confirmOrder'}) 
         await chatBotService.checkoutPhamarcyUserCart(user.id)  
         return {
-            nextStepChatConfig:{key:'P_chatbot_confirmOrder'},
+            nextStepChatConfig,
             replyMessageParameters,
             chatSessionData:{
                 ...chatSessionData,
@@ -26,9 +27,10 @@ export async function verifyCartItemNote (recivedChatTextMessage,chatSessionData
         } 
     }else 
     {
+        const nextStepChatConfig = getChatConfig({key:'P_chatbot_editProducts'}) 
         //Edit Cart Products 
         return {
-            nextStepChatConfig: {key:'P_chatbot_editProducts'},
+            nextStepChatConfig,
             replyMessageParameters,
             chatSessionData:{
                 ...chatSessionData,

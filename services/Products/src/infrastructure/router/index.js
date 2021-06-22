@@ -7,11 +7,11 @@ const bodyParser = require("body-parser");
 var jsonParser = bodyParser.json()
 
 export let routers = function (app) {
-  app.get("/", jsonParser ,(req, res) => {
+  app.get("/api/product", jsonParser ,(req, res) => {
     ProductController.getProductsAndSuggestions(req, res)
   });
 
-  app.get("/variant/product", jsonParser, (req, res) => {
+  app.get("/api/variant/product", jsonParser, (req, res) => {
     ProductVariantController.getVariantProduct(req, res)
   });
 };

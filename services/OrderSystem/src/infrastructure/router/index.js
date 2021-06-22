@@ -5,16 +5,19 @@ const CartController = container.resolve('CartController');
 const CartItemController = container.resolve('CartItemController');
 
 export let routers = function (app) {
-  app.get("/user", (req, res) => {
+  app.get("/api/user", (req, res) => {
     UserController.getUsersByPhone(req, res)
   });
-  app.get("/user/cart", (req, res) => {
+  app.get("/api/user/cart", (req, res) => {
     CartController.getPhamarcyUserCart(req, res)
   });
-  app.post("/user/cart/item", (req, res) => {
+  app.post("/api/user/cart", (req, res) => {
+    CartController.updateCart(req, res)
+  });
+  app.post("/api/user/cart/item", (req, res) => {
     CartItemController.createCartItem(req, res)
   });
-  app.delete("/user/cart/item", (req, res) => {
+  app.delete("/api/user/cart/item", (req, res) => {
     CartItemController.deleteCartItem(req, res)
   });
 };

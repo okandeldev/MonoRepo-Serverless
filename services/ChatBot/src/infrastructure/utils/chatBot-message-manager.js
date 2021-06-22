@@ -60,21 +60,18 @@ export function getChatConfig({key,stepNo}){
 // Params  :   recivedChatTextMessage, chatSessionData
 // returns :  chatSessionData for the next step
 export let processRecivedMessage = async function (recivedChatTextMessage,chatSessionData){
-    let chatConfig 
-    if (!chatSessionData) { 
-        chatConfig = getChatConfig({key: 'P_chatbot_notRegistered'}) 
-    } else {
-        const { chatId , stepNo, languageCode } = chatSessionData;  
-        chatConfig = getChatConfig({stepNo:stepNo})
-    }
+    console.log('chatSessionData',chatSessionData);
+    let chatConfig = getChatConfig(chatSessionData?.stepNo ? {stepNo:chatSessionData.stepNo} : {key: 'P_chatbot_notRegistered'}) 
+    chatSessionData = chatSessionData ||  {stepNo:chatConfig.stepNo, chatId:chatId} 
+    const { chatId, languageCode } = chatSessionData;
+    console.log('chatConfig',chatConfig);
     if (chatConfig)
     {
-        const {fn} = chatConfig  
+        const {fn} = chatConfig
         if (functions[fn] && functions[fn] != ""){ 
             const chatSessionDataOutput = await functions[fn](recivedChatTextMessage,chatSessionData)
-            if (chatSessionDataOutput?.nextStepChatConfig){  
-                const nextStepChatConfig = getChatConfig(chatSessionDataOutput?.nextStepChatConfig)
-                const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, nextStepChatConfig , chatSessionDataOutput.replyMessageParameters)
+            if (chatSessionDataOutput?.nextStepChatConfig){
+                const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatSessionDataOutput?.nextStepChatConfig , chatSessionDataOutput.replyMessageParameters)
                 await apiChatSendMessage('message', {chatId: chatId, body: chatReplyTextMessage}); 
             }
             return chatSessionDataOutput;

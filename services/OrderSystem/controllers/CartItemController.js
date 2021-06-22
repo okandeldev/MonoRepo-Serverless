@@ -6,12 +6,13 @@ export class CartItemController {
   }
 
   async createCartItem(req, res) {
+    // const data = req.apiGateway.event.body;
     const data = req.body;
     const cartItem = await this.cartItemService.createCartItem(data);
     if (cartItem) {
       res.send({
         statusCode: 200,
-        data: cart.toJSON()
+        data: cartItem.toJSON() 
       })
     } else {
       res.send({
@@ -25,12 +26,20 @@ export class CartItemController {
 
   async deleteCartItem(req, res) {
     const id = req.body.id;
-    const cartItem = await this.cartItemService.createCartItem(id);
+    const cartItem = await this.cartItemService.deleteCartItem(id);
     if (cartItem) {
       res.send({
         statusCode: 200,
-        data: cart.toJSON()
+        data: {
+          message: "Cart item deleted successfully"
+        }
       })
+    } else if (cartItem == null) {
+      res.send({
+        statusCode: 404,
+        data: {
+          error: "Cart item not found"
+        }})
     } else {
       res.send({
         statusCode: 500,

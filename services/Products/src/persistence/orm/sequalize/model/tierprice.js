@@ -1,6 +1,6 @@
 export function TierPrice (sequelize, DataTypes) {
   const TierPrice = sequelize.define('TierPrice', {
-    productVarientId: DataTypes.INTEGER,
+    productVariantId: DataTypes.INTEGER,
     supplierId: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     discount: DataTypes.DECIMAL

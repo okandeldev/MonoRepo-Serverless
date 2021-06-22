@@ -11,7 +11,7 @@ module.exports = {
       pharmacyUserId: {
         type: Sequelize.INTEGER
       },
-      productVarientId: {
+      productVariantId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

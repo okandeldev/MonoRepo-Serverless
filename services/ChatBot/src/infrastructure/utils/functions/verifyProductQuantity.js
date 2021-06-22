@@ -1,5 +1,5 @@
 const {getChatConfig} = require('../chatBot-message-manager')
-const container = require('../../config/di-setup')
+import { container, setup } from '../../config/di-setup'
 
 // Params  :  recivedChatTextMessage , chatSessionData
 // returns :  {
@@ -29,9 +29,10 @@ export async function verifyProductQuantity (recivedChatTextMessage,chatSessionD
             // remove from Cart
             let {productVariantId} = chatSessionData.cartItem;
             await chatBotService.RemovePhamarcyUserCartItem(user.id,productVariantId)
+            const nextStepChatConfig = getChatConfig({key:'P_chatbot_enterNewProductName'})
             chatSessionData.cartItem = null; 
             return {
-                nextStepChatConfig: {key:'P_chatbot_enterNewProductName'},
+                nextStepChatConfig,
                 replyMessageParameters,
                 chatSessionData:{
                     ...chatSessionData,
@@ -40,9 +41,10 @@ export async function verifyProductQuantity (recivedChatTextMessage,chatSessionD
             }
         }else{
             // Add Notes to CartItem
-            chatSessionData.cartItem = {...chatSessionData.cartItem, quantity: enteredQuantity} 
+            chatSessionData.cartItem = {...chatSessionData.cartItem, quantity: enteredQuantity}
+            const nextStepChatConfig = getChatConfig({key:'P_chatbot_verifyProductName_InvalidName'})
             return {
-                nextStepChatConfig: {key:'P_chatbot_enterNotes'},
+                nextStepChatConfig,
                 replyMessageParameters,
                 chatSessionData:{
                     ...chatSessionData,

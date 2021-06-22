@@ -1,5 +1,6 @@
 const {getChatConfig} = require('../chatBot-message-manager')
-const container = require('../../config/di-setup')
+import { container, setup } from '../../config/di-setup'
+import { constants } from '../../config/constants'
 
 // Params  :  recivedChatTextMessage , chatSessionData
 // returns :  {
@@ -7,21 +8,22 @@ const container = require('../../config/di-setup')
 //    replyMessageParameters =  Reply Chat Message Parameters
 //    chatSessionData =  Update chatSessionData with next step
 //  }
-export async function newMessage_VerifyProductName (recivedChatTextMessage,chatSessionData) {
+export async function verifyProductName (recivedChatTextMessage,chatSessionData) {
     const {user ,chatId} = {...chatSessionData} 
     const cart = chatBotService.getPhamarcyUserCart(user.id)
     let replyMessageParameters = {}
     const chatBotService = container.resolve("chatBotService"); 
-
-    
-    //TODO: match all cases of No
-    if (recivedChatTextMessage === 'No'){
+ 
+    const RejectionList = constants.ChatRecievedMessage.Reject.map((x)=> `/${x}/i`);
+    let isRejection =  RejectionList.some(function(rx) { return rx.test(recivedChatTextMessage); }); 
+    if (isRejection) {
         if (chatSessionData.cartItem){  
             let {productVariantId,quantity} = chatSessionData.cartItem
             await chatBotService.AddPhamarcyUserCartItem(user.id,productVariantId,quantity)
-            chatSessionData.cartItem = null 
+            chatSessionData.cartItem = null
+            const nextStepChatConfig = getChatConfig({key:'P_chatbot_enterNotes'})
             return {
-                nextStepChatConfig: {key:'P_chatbot_enterNotes'},
+                nextStepChatConfig,
                 replyMessageParameters,
                 chatSessionData:{
                     ...chatSessionData,
@@ -31,9 +33,10 @@ export async function newMessage_VerifyProductName (recivedChatTextMessage,chatS
         }
         //Invalid Name
         else {
-            chatSessionData.cartItem = null 
+            chatSessionData.cartItem = null
+            const nextStepChatConfig = getChatConfig({key:'P_chatbot_verifyProductName_InvalidName'})
             return {
-                nextStepChatConfig: {key:'P_chatbot_verifyProductName_InvalidName'},
+                nextStepChatConfig,
                 replyMessageParameters,
                 chatSessionData:{
                     ...chatSessionData,
@@ -46,25 +49,29 @@ export async function newMessage_VerifyProductName (recivedChatTextMessage,chatS
       
         if (matchedProduct){
             //TODO: check product variant
-            const productAlreadyAdded = cart.cartItems.filter((c)=>c.productVarientId == matchedProduct.productVarientId)[0]
+            const productAlreadyAdded = cart.cartItems.filter((c)=>
+            matchedProduct.ProductVariants.some(function(v) { return v.id == c.productVariantId  }))
+
             //Already Added
             if(productAlreadyAdded){ 
-                let {cartId, productVarientId, quantity, note} = productAlreadyAdded
-                chatSessionData.cartItem = {cartId, productVarientId, quantity, note} 
+                let {cartId, productVariantId, quantity, note} = productAlreadyAdded
+                chatSessionData.cartItem = {cartId, productVariantId, quantity, note} 
                 replyMessageParameters['products_count'] = quantity
+                const nextStepChatConfig = getChatConfig({key:'P_chatbot_verifyProductName_ValidNameAndExistsInOrder'})
                 return {
-                    nextStepChatConfig: {key:'P_chatbot_verifyProductName_ValidNameAndExistsInOrder'},
+                    nextStepChatConfig,
                     replyMessageParameters,
                     chatSessionData:{
                         ...chatSessionData,
                         stepNo:nextStepChatConfig.stepNo
-                    } 
+                    }
                 }
             }else 
             {            
-                chatSessionData.cartItem = { productVarientId:matchedProduct.productVarientId, quantity:1, note:''}
+                chatSessionData.cartItem = { productVariantId:matchedProduct.productVariantId, quantity:1, note:''}
+                const nextStepChatConfig = getChatConfig({key:'P_chatbot_verifyProductName_ValidNameButNotExistsInOrder'})
                 return {
-                    nextStepChatConfig: {key:'P_chatbot_verifyProductName_ValidNameButNotExistsInOrder'},
+                    nextStepChatConfig,
                     replyMessageParameters,
                     chatSessionData:{
                         ...chatSessionData,
@@ -76,9 +83,10 @@ export async function newMessage_VerifyProductName (recivedChatTextMessage,chatS
         //Name Matches suggested Products
         else  if (!matchedProduct   && suggestedProducts.length >0 ){ 
             replyMessageParameters['products'] = suggestedProducts.map((item)=> item.name + '<br/>')
-            chatSessionData.cartItem = null 
+            chatSessionData.cartItem = null
+            const nextStepChatConfig = getChatConfig({key:'P_chatbot_verifyProductName_NameWithManyProducts'})
             return {
-                nextStepChatConfig: {key:'P_chatbot_verifyProductName_NameWithManyProducts'},
+                nextStepChatConfig,
                 replyMessageParameters,
                 chatSessionData:{
                     ...chatSessionData,
@@ -88,9 +96,10 @@ export async function newMessage_VerifyProductName (recivedChatTextMessage,chatS
         }
         //Invalid Name
         else { 
-            chatSessionData.cartItem = null 
+            chatSessionData.cartItem = null
+            const nextStepChatConfig = getChatConfig({key:'P_chatbot_verifyProductName_InvalidName'})
             return {
-                nextStepChatConfig: {key:'P_chatbot_verifyProductName_InvalidName'},
+                nextStepChatConfig,
                 replyMessageParameters,
                 chatSessionData:{
                     ...chatSessionData,

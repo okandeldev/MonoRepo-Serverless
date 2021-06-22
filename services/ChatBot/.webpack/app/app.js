@@ -361,18 +361,19 @@ class ChatAPIController {
       if (data.messages[i].fromMe) return;
       let chatSessionData = await this.chatBotService.getAuthorChatBotSessionData(chatId, author, mobile);
       chatSessionData = chatSessionData || {
-        stepNo: 2,
         chatId: chatId
       };
       const updatedChatSessionData = await processRecivedMessage(body, chatSessionData);
-      chatSessionData = updatedChatSessionData || chatSessionData;
-      console.log('updateAuthorChatBotSessionData', author, chatSessionData);
-      await this.chatBotService.updateAuthorChatBotSessionData(author, chatSessionData);
+
+      if (updatedChatSessionData) {
+        // chatSessionData = updatedChatSessionData || chatSessionData
+        await this.chatBotService.updateAuthorChatBotSessionData(author, updatedChatSessionData.chatSessionData);
+      }
     }
 
     res.send({
       statusCode: 200,
-      body: data
+      data: data
     });
   }
 
@@ -384,10 +385,10 @@ class ChatAPIController {
 /*!*****************************************************************************************************************************!*\
   !*** D:/Softmills/Pharma/src/nodejs-pharma-backend/services/ChatBot/src/infrastructure/config/chat-functions/pharmacy.json ***!
   \*****************************************************************************************************************************/
-/*! exports provided: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, default */
+/*! exports provided: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("[{\"id\":1,\"stepNo\":1,\"parent_id\":null,\"type\":\"receive\",\"description\":\"New message received\",\"message\":{\"key\":\"P_chatbot_checkNewMessageReceived\",\"params\":[]},\"fn\":\"checkNewMessageReceived\"},{\"id\":2,\"stepNo\":2,\"parent_id\":[1],\"type\":\"send\",\"description\":\"Not registered\",\"message\":{\"key\":\"P_chatbot_notRegistered\",\"params\":[\"contactus_url\"]},\"fn\":\"notRegistered\"},{\"id\":3,\"stepNo\":3,\"parent_id\":[1],\"type\":\"send\",\"description\":\"Has order but no draft\",\"message\":{\"key\":\"P_chatbot_hasOrderNoDraft\",\"params\":[\"pharmacy_name\",\"track_order_url\",\"create_order_url\",\"contacts_url\"]},\"fn\":\"newMessage_VerifyProductName\"},{\"id\":4,\"stepNo\":4,\"parent_id\":[1],\"type\":\"send\",\"description\":\"No order and no draft\",\"message\":{\"key\":\"P_chatbot_noOrderNoDraft\",\"params\":[\"pharmacy_name\",\"create_order_url\",\"contacts_url\"]},\"fn\":\"newMessage_VerifyProductName\"},{\"id\":5,\"stepNo\":5,\"parent_id\":[3,4,12,16],\"type\":\"send\",\"description\":\"Verify entered product name\",\"message\":{\"key\":\"P_chatbot_newMessage_VerifyProductName\",\"params\":[]},\"fn\":\"newMessage_VerifyProductName\"},{\"id\":6,\"stepNo\":6,\"parent_id\":[5],\"type\":\"receive\",\"description\":\"Invalid product name\",\"message\":{\"key\":\"P_chatbot_verifyProductName_InvalidName\",\"params\":[]},\"fn\":\"verifyProductName_InvalidName\"},{\"id\":7,\"stepNo\":7,\"parent_id\":[5],\"type\":\"send\",\"description\":\"Product name matches many products\",\"message\":{\"key\":\"P_chatbot_verifyProductName_NameWithManyProducts\",\"params\":[\"products\"]},\"fn\":\"verifyProductName_NameWithManyProducts\"},{\"id\":8,\"stepNo\":8,\"parent_id\":[5],\"type\":\"send\",\"description\":\"Product name valid but not exists in the order\",\"message\":{\"key\":\"P_chatbot_verifyProductName_ValidNameButNotExistsInOrder\",\"params\":[]},\"fn\":\"verifyProductName_ValidNameButNotExistsInOrder\"},{\"id\":9,\"stepNo\":9,\"parent_id\":[5],\"type\":\"send\",\"description\":\"Product name valid and exists in the order\",\"message\":{\"key\":\"P_chatbot_verifyProductName_ValidNameAndExistsInOrder\",\"params\":[\"products_count\"]},\"fn\":\"verifyProductName_ValidNameAndExistsInOrder\"},{\"id\":10,\"stepNo\":10,\"parent_id\":[8,9],\"type\":\"send\",\"description\":\"Invalid entered number of boxes\",\"message\":{\"key\":\"P_chatbot_verifyNumber_InvalidNumber\",\"params\":[]},\"fn\":\"verifyNumber_InvalidNumber\"},{\"id\":11,\"stepNo\":11,\"parent_id\":[8,9],\"type\":\"send\",\"description\":\"Change the product\",\"message\":{\"key\":\"P_chatbot_verifyNumber_ChangeProduct\",\"params\":[]},\"fn\":\"verifyNumber_ChangeProduct\"},{\"id\":12,\"stepNo\":12,\"parent_id\":[11],\"type\":\"receive\",\"description\":\"Enter the new product name\",\"message\":{\"key\":\"P_chatbot_enterNewProductName\",\"params\":[]},\"fn\":\"enterNewProductName\"},{\"id\":13,\"stepNo\":13,\"parent_id\":[11],\"type\":\"receive\",\"description\":\"No change in product name\",\"message\":{\"key\":\"P_chatbot_noChangeInProductName\",\"params\":[]},\"fn\":\"noChangeInProductName\"},{\"id\":14,\"stepNo\":14,\"parent_id\":[13],\"type\":\"send\",\"description\":\"Enter notes\",\"message\":{\"key\":\"P_chatbot_enterNotes\",\"params\":[]},\"fn\":\"enterNotes\"},{\"id\":15,\"stepNo\":15,\"parent_id\":[14],\"type\":\"send\",\"description\":\"Review order\",\"message\":{\"key\":\"P_chatbot_reviewOrder\",\"params\":[\"products\"]},\"fn\":\"reviewOrder\"},{\"id\":16,\"stepNo\":16,\"parent_id\":[15,20],\"type\":\"receive\",\"description\":\"Edit order\",\"message\":{\"key\":\"P_chatbot_editOrder\",\"params\":[]},\"fn\":\"editOrder\"},{\"id\":17,\"stepNo\":17,\"parent_id\":[16],\"type\":\"receive\",\"description\":\"Don't add new\",\"message\":{\"key\":\"P_chatbot_doNotAddNew\",\"params\":[\"products\"]},\"fn\":\"doNotAddNew\"},{\"id\":18,\"stepNo\":18,\"parent_id\":[16],\"type\":\"receive\",\"description\":\"Add new\",\"message\":{\"key\":\"P_chatbot_addNewProductName\",\"params\":[]},\"fn\":\"addNewProductName\"},{\"id\":19,\"stepNo\":19,\"parent_id\":[15,20],\"type\":\"send\",\"description\":\"Confirm order\",\"message\":{\"key\":\"P_chatbot_confirmOrder\",\"params\":[\"track_order_url\"]},\"fn\":\"confirmOrder\"},{\"id\":20,\"stepNo\":20,\"parent_id\":[1],\"type\":\"send\",\"description\":\"No order but has draft\",\"message\":{\"key\":\"P_chatbot_noOrderButHasDraft\",\"params\":[\"pharmacy_name\",\"contactus_url\",\"create_order_url\",\"products\"]},\"fn\":\"noOrderButHasDraft\"},{\"id\":21,\"stepNo\":21,\"parent_id\":null,\"type\":\"send\",\"description\":\"Send supplier offer to client\",\"message\":{\"key\":\"P_chatbot_sendSupplierOfferToClient\",\"params\":[\"pharmacy_name\",\"order_code\",\"order_cost\",\"offer_url\"]},\"fn\":\"sendSupplierOfferToClient\"},{\"id\":22,\"stepNo\":22,\"parent_id\":null,\"type\":\"send\",\"description\":\"Send rating order request\",\"message\":{\"key\":\"P_chatbot_sendRatingOrderRequest\",\"params\":[\"pharmacy_name\",\"order_code\",\"offer_url\"]},\"fn\":\"sendRatingOrderRequest\"}]");
+module.exports = JSON.parse("[{\"id\":1,\"stepNo\":1,\"parent_id\":null,\"type\":\"receive\",\"description\":\"New message received\",\"message\":{\"key\":\"P_chatbot_checkNewMessageReceived\",\"params\":[]},\"fn\":\"checkNewMessageReceived\"},{\"id\":2,\"stepNo\":2,\"parent_id\":[1],\"type\":\"send\",\"description\":\"Not registered\",\"message\":{\"key\":\"P_chatbot_notRegistered\",\"params\":[\"contactus_url\"]},\"fn\":\"\"},{\"id\":3,\"stepNo\":3,\"parent_id\":[1],\"type\":\"send\",\"description\":\"Has order but no draft\",\"message\":{\"key\":\"P_chatbot_hasOrderNoDraft\",\"params\":[\"pharmacy_name\",\"track_order_url\",\"create_order_url\",\"contacts_url\"]},\"fn\":\"verifyProductName\"},{\"id\":4,\"stepNo\":4,\"parent_id\":[1],\"type\":\"send\",\"description\":\"No order and no draft\",\"message\":{\"key\":\"P_chatbot_noOrderNoDraft\",\"params\":[\"pharmacy_name\",\"create_order_url\",\"contacts_url\"]},\"fn\":\"verifyProductName\"},{\"id\":5,\"stepNo\":5,\"parent_id\":[3,4,10,13],\"type\":\"receive\",\"description\":\"Invalid product name\",\"message\":{\"key\":\"P_chatbot_verifyProductName_InvalidName\",\"params\":[]},\"fn\":\"verifyProductName\"},{\"id\":6,\"stepNo\":6,\"parent_id\":[3,4,10,13],\"type\":\"send\",\"description\":\"Product name matches many products\",\"message\":{\"key\":\"P_chatbot_verifyProductName_NameWithManyProducts\",\"params\":[\"products\"]},\"fn\":\"verifyProductName\"},{\"id\":7,\"stepNo\":7,\"parent_id\":[3,4,10,13],\"type\":\"send\",\"description\":\"Product name valid but not exists in the order\",\"message\":{\"key\":\"P_chatbot_verifyProductName_ValidNameButNotExistsInOrder\",\"params\":[]},\"fn\":\"verifyProductQuantity\"},{\"id\":8,\"stepNo\":8,\"parent_id\":[3,4,10,13],\"type\":\"send\",\"description\":\"Product name valid and exists in the order\",\"message\":{\"key\":\"P_chatbot_verifyProductName_ValidNameAndExistsInOrder\",\"params\":[\"products_count\"]},\"fn\":\"verifyProductQuantity\"},{\"id\":9,\"stepNo\":9,\"parent_id\":[7,8],\"type\":\"send\",\"description\":\"Invalid entered number of boxes\",\"message\":{\"key\":\"P_chatbot_verifyNumber_InvalidNumber\",\"params\":[]},\"fn\":\"verifyProductQuantity\"},{\"id\":10,\"stepNo\":10,\"parent_id\":[7,8,9],\"type\":\"receive\",\"description\":\"Enter the new product name\",\"message\":{\"key\":\"P_chatbot_enterNewProductName\",\"params\":[]},\"fn\":\"verifyProductName\"},{\"id\":11,\"stepNo\":11,\"parent_id\":[7,8,9],\"type\":\"send\",\"description\":\"Enter notes\",\"message\":{\"key\":\"P_chatbot_enterNotes\",\"params\":[]},\"fn\":\"verifyCartNote\"},{\"id\":12,\"stepNo\":12,\"parent_id\":[11],\"type\":\"send\",\"description\":\"Review order\",\"message\":{\"key\":\"P_chatbot_reviewOrder\",\"params\":[\"products\"]},\"fn\":\"reviewOrder\"},{\"id\":13,\"stepNo\":13,\"parent_id\":[7,8,9,15],\"type\":\"receive\",\"description\":\"Edit Products\",\"message\":{\"key\":\"P_chatbot_editProducts\",\"params\":[]},\"fn\":\"verifyProductName\"},{\"id\":14,\"stepNo\":14,\"parent_id\":[12,15],\"type\":\"send\",\"description\":\"Confirm order\",\"message\":{\"key\":\"P_chatbot_confirmOrder\",\"params\":[\"track_order_url\"]},\"fn\":\"confirmOrder\"},{\"id\":15,\"stepNo\":15,\"parent_id\":[1],\"type\":\"send\",\"description\":\"No order but has draft\",\"message\":{\"key\":\"P_chatbot_noOrderButHasDraft\",\"params\":[\"pharmacy_name\",\"contactus_url\",\"create_order_url\",\"products\"]},\"fn\":\"reviewOrder\"},{\"id\":16,\"stepNo\":16,\"parent_id\":null,\"type\":\"send\",\"description\":\"Send supplier offer to client\",\"message\":{\"key\":\"P_chatbot_sendSupplierOfferToClient\",\"params\":[\"pharmacy_name\",\"order_code\",\"order_cost\",\"offer_url\"]},\"fn\":\"sendSupplierOfferToClient\"},{\"id\":17,\"stepNo\":17,\"parent_id\":null,\"type\":\"send\",\"description\":\"Send rating order request\",\"message\":{\"key\":\"P_chatbot_sendRatingOrderRequest\",\"params\":[\"pharmacy_name\",\"order_code\",\"offer_url\"]},\"fn\":\"sendRatingOrderRequest\"}]");
 
 /***/ }),
 
@@ -596,8 +597,6 @@ function initiateChatTextMessageWithParameters(languageCode, {
     mappedParams.push(commonChatBotMessageParam[param] || otherMessageParam[param]);
   }
 
-  console.log('params', params);
-  console.log('mappedParams', mappedParams);
   return localization.translate(key, ...mappedParams);
 } // search Chat Config Json
 // Params  :   key = Message Identifier,stepNo
@@ -634,37 +633,49 @@ function getChatConfig({
 // returns :  chatSessionData for the next step
 
 let processRecivedMessage = async function (recivedChatTextMessage, chatSessionData) {
+  var _chatSessionData;
+
+  console.log('chatSessionData', chatSessionData);
+  let chatConfig = getChatConfig((_chatSessionData = chatSessionData) !== null && _chatSessionData !== void 0 && _chatSessionData.stepNo ? {
+    stepNo: chatSessionData.stepNo
+  } : {
+    key: 'P_chatbot_notRegistered'
+  });
+  chatSessionData = chatSessionData || {
+    stepNo: chatConfig.stepNo,
+    chatId: chatId
+  };
   const {
     chatId,
     languageCode
   } = chatSessionData;
-  const chatConfig = getChatConfig({
-    stepNo: chatSessionData.stepNo
-  });
-  const {
-    fn
-  } = chatConfig;
-  console.log('selected chat Config fn', fn);
+  console.log('chatConfig', chatConfig);
 
-  if (functions[fn]) {
-    const chatSessionDataOutput = await functions[fn](recivedChatTextMessage, chatSessionData);
+  if (chatConfig) {
+    const {
+      fn
+    } = chatConfig;
 
-    if (chatSessionDataOutput !== null && chatSessionDataOutput !== void 0 && chatSessionDataOutput.nextStepChatConfig) {
-      const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatSessionDataOutput === null || chatSessionDataOutput === void 0 ? void 0 : chatSessionDataOutput.nextStepChatConfig, chatSessionDataOutput.replyMessageParameters);
+    if (functions[fn] && functions[fn] != "") {
+      const chatSessionDataOutput = await functions[fn](recivedChatTextMessage, chatSessionData);
+
+      if (chatSessionDataOutput !== null && chatSessionDataOutput !== void 0 && chatSessionDataOutput.nextStepChatConfig) {
+        const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatSessionDataOutput === null || chatSessionDataOutput === void 0 ? void 0 : chatSessionDataOutput.nextStepChatConfig, chatSessionDataOutput.replyMessageParameters);
+        await apiChatSendMessage('message', {
+          chatId: chatId,
+          body: chatReplyTextMessage
+        });
+      }
+
+      return chatSessionDataOutput;
+    } else {
+      const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatConfig);
       await apiChatSendMessage('message', {
         chatId: chatId,
         body: chatReplyTextMessage
       });
+      return null;
     }
-
-    return chatSessionDataOutput;
-  } else {
-    //commonChatBotMessageParam.pharmacy_name
-    const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatConfig);
-    await apiChatSendMessage('message', {
-      chatId: chatId,
-      body: chatReplyTextMessage
-    });
   }
 };
 
@@ -721,11 +732,10 @@ async function checkNewMessageReceived(recivedChatTextMessage, chatSessionData) 
     };
   } //No order and no draft
   else if (requestsCount == 0 && cartItemsCount == 0) {
-      const nextStepChatConfig = Object(_chatBot_message_manager__WEBPACK_IMPORTED_MODULE_1__["getChatConfig"])({
-        key: 'P_chatbot_noOrderNoDraft'
-      });
       return {
-        nextStepChatConfig,
+        nextStepChatConfig: {
+          key: 'P_chatbot_noOrderNoDraft'
+        },
         replyMessageParameters,
         chatSessionData: { ...chatSessionData,
           stepNo: nextStepChatConfig.stepNo
@@ -738,7 +748,8 @@ async function checkNewMessageReceived(recivedChatTextMessage, chatSessionData) 
         const nextStepChatConfig = Object(_chatBot_message_manager__WEBPACK_IMPORTED_MODULE_1__["getChatConfig"])({
           key: 'P_chatbot_noOrderButHasDraft'
         });
-        replyMessageParameters['products'] = cart.CartItems.map(item => JSON.stringify(item) + '\n').join('');
+        replyMessageParameters['pharmacy_name'] = user.Pharmacy.name;
+        replyMessageParameters['products'] = cart.CartItems.map(item => `${item.quantity} ${item.productName} \n`).join('');
         return {
           nextStepChatConfig,
           replyMessageParameters,
@@ -756,7 +767,7 @@ async function checkNewMessageReceived(recivedChatTextMessage, chatSessionData) 
 /*!******************************************************************************************************************!*\
   !*** D:/Softmills/Pharma/src/nodejs-pharma-backend/services/ChatBot/src/infrastructure/utils/functions/index.js ***!
   \******************************************************************************************************************/
-/*! exports provided: checkNewMessageReceived, newMessage_VerifyProductName */
+/*! exports provided: checkNewMessageReceived, verifyProductName, verifyProductQuantity, verifyCartNote, reviewOrder */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -766,8 +777,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _checkNewMessageReceived__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./checkNewMessageReceived */ "../../../services/ChatBot/src/infrastructure/utils/functions/checkNewMessageReceived.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "checkNewMessageReceived", function() { return _checkNewMessageReceived__WEBPACK_IMPORTED_MODULE_1__["checkNewMessageReceived"]; });
 
-/* harmony import */ var _newMessage_VerifyProductName__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./newMessage_VerifyProductName */ "../../../services/ChatBot/src/infrastructure/utils/functions/newMessage_VerifyProductName.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "newMessage_VerifyProductName", function() { return _newMessage_VerifyProductName__WEBPACK_IMPORTED_MODULE_2__["newMessage_VerifyProductName"]; });
+/* harmony import */ var _verifyProductName__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./verifyProductName */ "../../../services/ChatBot/src/infrastructure/utils/functions/verifyProductName.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "verifyProductName", function() { return _verifyProductName__WEBPACK_IMPORTED_MODULE_2__["verifyProductName"]; });
+
+/* harmony import */ var _verifyProductQuantity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./verifyProductQuantity */ "../../../services/ChatBot/src/infrastructure/utils/functions/verifyProductQuantity.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "verifyProductQuantity", function() { return _verifyProductQuantity__WEBPACK_IMPORTED_MODULE_3__["verifyProductQuantity"]; });
+
+/* harmony import */ var _verifyCartNote__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./verifyCartNote */ "../../../services/ChatBot/src/infrastructure/utils/functions/verifyCartNote.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "verifyCartNote", function() { return _verifyCartNote__WEBPACK_IMPORTED_MODULE_4__["verifyCartNote"]; });
+
+/* harmony import */ var _reviewOrder__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reviewOrder */ "../../../services/ChatBot/src/infrastructure/utils/functions/reviewOrder.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reviewOrder", function() { return _reviewOrder__WEBPACK_IMPORTED_MODULE_5__["reviewOrder"]; });
+
+
+
 
 
 
@@ -783,74 +806,173 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../services/ChatBot/src/infrastructure/utils/functions/newMessage_VerifyProductName.js":
-/*!*****************************************************************************************************************************************!*\
-  !*** D:/Softmills/Pharma/src/nodejs-pharma-backend/services/ChatBot/src/infrastructure/utils/functions/newMessage_VerifyProductName.js ***!
-  \*****************************************************************************************************************************************/
-/*! exports provided: newMessage_VerifyProductName */
+/***/ "../../../services/ChatBot/src/infrastructure/utils/functions/reviewOrder.js":
+/*!************************************************************************************************************************!*\
+  !*** D:/Softmills/Pharma/src/nodejs-pharma-backend/services/ChatBot/src/infrastructure/utils/functions/reviewOrder.js ***!
+  \************************************************************************************************************************/
+/*! exports provided: reviewOrder */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newMessage_VerifyProductName", function() { return newMessage_VerifyProductName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reviewOrder", function() { return reviewOrder; });
 /* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! source-map-support/register */ "../../source-map-support/register.js");
 /* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(source_map_support_register__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config_di_setup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config/di-setup */ "../../../services/ChatBot/src/infrastructure/config/di-setup.js");
 
 
 const {
   getChatConfig
 } = __webpack_require__(/*! ../chatBot-message-manager */ "../../../services/ChatBot/src/infrastructure/utils/chatBot-message-manager.js");
 
-const container = __webpack_require__(/*! ../../config/di-setup */ "../../../services/ChatBot/src/infrastructure/config/di-setup.js"); // Params  :  recivedChatTextMessage , chatSessionData
+ // Params  :  recivedChatTextMessage , chatSessionData
 // returns :  {
 //    nextStepChatConfig =  Chat Step Config
 //    replyMessageParameters =  Reply Chat Message Parameters
 //    chatSessionData =  Update chatSessionData with next step
 //  }
 
-
-async function newMessage_VerifyProductName(recivedChatTextMessage, chatSessionData) {
+async function reviewOrder(recivedChatTextMessage, chatSessionData) {
   const {
     user,
     chatId
   } = { ...chatSessionData
   };
   let replyMessageParameters = {};
-  const chatBotService = container.resolve("chatBotService");
+  const chatBotService = _config_di_setup__WEBPACK_IMPORTED_MODULE_1__["container"].resolve("chatBotService");
+  console.log('reviewOrder', recivedChatTextMessage, chatSessionData);
+
+  if (recivedChatTextMessage == '1') {
+    // Create Request 
+    const nextStepChatConfig = getChatConfig({
+      key: 'P_chatbot_confirmOrder'
+    });
+    await chatBotService.checkoutPhamarcyUserCart(user.id);
+    return {
+      nextStepChatConfig,
+      replyMessageParameters,
+      chatSessionData: { ...chatSessionData,
+        stepNo: nextStepChatConfig.stepNo
+      }
+    };
+  } else {
+    const nextStepChatConfig = getChatConfig({
+      key: 'P_chatbot_editProducts'
+    }); //Edit Cart Products 
+
+    return {
+      nextStepChatConfig,
+      replyMessageParameters,
+      chatSessionData: { ...chatSessionData,
+        stepNo: nextStepChatConfig.stepNo
+      }
+    };
+  }
+}
+;
+
+/***/ }),
+
+/***/ "../../../services/ChatBot/src/infrastructure/utils/functions/verifyCartNote.js":
+/*!***************************************************************************************************************************!*\
+  !*** D:/Softmills/Pharma/src/nodejs-pharma-backend/services/ChatBot/src/infrastructure/utils/functions/verifyCartNote.js ***!
+  \***************************************************************************************************************************/
+/*! exports provided: verifyCartItemNote */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "verifyCartItemNote", function() { return verifyCartItemNote; });
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! source-map-support/register */ "../../source-map-support/register.js");
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(source_map_support_register__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config_di_setup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config/di-setup */ "../../../services/ChatBot/src/infrastructure/config/di-setup.js");
+
+
+const {
+  getChatConfig
+} = __webpack_require__(/*! ../chatBot-message-manager */ "../../../services/ChatBot/src/infrastructure/utils/chatBot-message-manager.js");
+
+ // Params  :  recivedChatTextMessage , chatSessionData
+// returns :  {
+//    nextStepChatConfig =  Chat Step Config
+//    replyMessageParameters =  Reply Chat Message Parameters
+//    chatSessionData =  Update chatSessionData with next step
+//  }
+
+async function verifyCartItemNote(recivedChatTextMessage, chatSessionData) {
   const {
-    matchedProduct,
-    suggestedProducts
-  } = chatBotService.SearchProductsAndSuggestions(recivedChatTextMessage);
-  const cart = chatBotService.getPhamarcyUserCart(user.id);
+    user,
+    chatId
+  } = { ...chatSessionData
+  };
+  let replyMessageParameters = {};
+  const chatBotService = _config_di_setup__WEBPACK_IMPORTED_MODULE_1__["container"].resolve("chatBotService"); // Add Notes to Cart
 
-  if (matchedProduct) {
-    //TODO: check product variant
-    const productAlreadyAdded = cart.cartItems.filter(c => c.id == matchedProduct.id)[0]; //Already Added
-
-    if (productAlreadyAdded) {
-      const nextStepChatConfig = getChatConfig('P_chatbot_verifyProductName_ValidNameAndExistsInOrder');
-      replyMessageParameters['products_count'] = productAlreadyAdded.quantity;
-      return {
-        nextStepChatConfig,
-        replyMessageParameters,
-        chatSessionData: { ...chatSessionData,
-          stepNo: nextStepChatConfig.stepNo
-        }
-      };
-    } else {
-      const nextStepChatConfig = getChatConfig('P_chatbot_verifyProductName_ValidNameButNotExistsInOrder');
-      return {
-        nextStepChatConfig,
-        replyMessageParameters,
-        chatSessionData: { ...chatSessionData,
-          stepNo: nextStepChatConfig.stepNo
-        }
-      };
+  await chatBotService.SavePhamarcyUserCartNote(user.id, recivedChatTextMessage);
+  const cart = await chatBotService.getPhamarcyUserCart(user.id);
+  replyMessageParameters['products'] = cart.CartItems.map(item => `${item.quantity} ${item.productName} \n`).join('');
+  const nextStepChatConfig = getChatConfig({
+    key: 'P_chatbot_reviewOrder'
+  });
+  return {
+    nextStepChatConfig,
+    replyMessageParameters,
+    chatSessionData: { ...chatSessionData,
+      stepNo: nextStepChatConfig.stepNo
     }
-  } //Name Matches suggested Products
-  else if (!matchedProduct && suggestedProducts.length > 0) {
-      replyMessageParameters['products'] = suggestedProducts.map(item => item.name + '<br/>');
-      const nextStepChatConfig = getChatConfig('P_chatbot_verifyProductName_NameWithManyProducts');
+  };
+}
+;
+
+/***/ }),
+
+/***/ "../../../services/ChatBot/src/infrastructure/utils/functions/verifyProductName.js":
+/*!******************************************************************************************************************************!*\
+  !*** D:/Softmills/Pharma/src/nodejs-pharma-backend/services/ChatBot/src/infrastructure/utils/functions/verifyProductName.js ***!
+  \******************************************************************************************************************************/
+/*! exports provided: verifyProductName */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "verifyProductName", function() { return verifyProductName; });
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! source-map-support/register */ "../../source-map-support/register.js");
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(source_map_support_register__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config_di_setup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config/di-setup */ "../../../services/ChatBot/src/infrastructure/config/di-setup.js");
+
+
+const {
+  getChatConfig
+} = __webpack_require__(/*! ../chatBot-message-manager */ "../../../services/ChatBot/src/infrastructure/utils/chatBot-message-manager.js");
+
+ // Params  :  recivedChatTextMessage , chatSessionData
+// returns :  {
+//    nextStepChatConfig =  Chat Step Config
+//    replyMessageParameters =  Reply Chat Message Parameters
+//    chatSessionData =  Update chatSessionData with next step
+//  }
+
+async function verifyProductName(recivedChatTextMessage, chatSessionData) {
+  const {
+    user,
+    chatId
+  } = { ...chatSessionData
+  };
+  const cart = chatBotService.getPhamarcyUserCart(user.id);
+  let replyMessageParameters = {};
+  const chatBotService = _config_di_setup__WEBPACK_IMPORTED_MODULE_1__["container"].resolve("chatBotService"); //TODO: match all cases of No
+
+  if (recivedChatTextMessage === 'No') {
+    if (chatSessionData.cartItem) {
+      let {
+        productVariantId,
+        quantity
+      } = chatSessionData.cartItem;
+      await chatBotService.AddPhamarcyUserCartItem(user.id, productVariantId, quantity);
+      chatSessionData.cartItem = null;
+      const nextStepChatConfig = getChatConfig({
+        key: 'P_chatbot_enterNotes'
+      });
       return {
         nextStepChatConfig,
         replyMessageParameters,
@@ -860,7 +982,10 @@ async function newMessage_VerifyProductName(recivedChatTextMessage, chatSessionD
       };
     } //Invalid Name
     else {
-        const nextStepChatConfig = getChatConfig('P_chatbot_verifyProductName_InvalidName');
+        chatSessionData.cartItem = null;
+        const nextStepChatConfig = getChatConfig({
+          key: 'P_chatbot_verifyProductName_InvalidName'
+        });
         return {
           nextStepChatConfig,
           replyMessageParameters,
@@ -869,8 +994,173 @@ async function newMessage_VerifyProductName(recivedChatTextMessage, chatSessionD
           }
         };
       }
+  } else {
+    const {
+      matchedProduct,
+      suggestedProducts
+    } = chatBotService.SearchProductsAndSuggestions(recivedChatTextMessage);
 
-  return chatData;
+    if (matchedProduct) {
+      //TODO: check product variant
+      const productAlreadyAdded = cart.cartItems.filter(c => c.productVarientId == matchedProduct.productVarientId)[0]; //Already Added
+
+      if (productAlreadyAdded) {
+        let {
+          cartId,
+          productVarientId,
+          quantity,
+          note
+        } = productAlreadyAdded;
+        chatSessionData.cartItem = {
+          cartId,
+          productVarientId,
+          quantity,
+          note
+        };
+        replyMessageParameters['products_count'] = quantity;
+        const nextStepChatConfig = getChatConfig({
+          key: 'P_chatbot_verifyProductName_ValidNameAndExistsInOrder'
+        });
+        return {
+          nextStepChatConfig,
+          replyMessageParameters,
+          chatSessionData: { ...chatSessionData,
+            stepNo: nextStepChatConfig.stepNo
+          }
+        };
+      } else {
+        chatSessionData.cartItem = {
+          productVarientId: matchedProduct.productVarientId,
+          quantity: 1,
+          note: ''
+        };
+        const nextStepChatConfig = getChatConfig({
+          key: 'P_chatbot_verifyProductName_ValidNameButNotExistsInOrder'
+        });
+        return {
+          nextStepChatConfig,
+          replyMessageParameters,
+          chatSessionData: { ...chatSessionData,
+            stepNo: nextStepChatConfig.stepNo
+          }
+        };
+      }
+    } //Name Matches suggested Products
+    else if (!matchedProduct && suggestedProducts.length > 0) {
+        replyMessageParameters['products'] = suggestedProducts.map(item => item.name + '<br/>');
+        chatSessionData.cartItem = null;
+        const nextStepChatConfig = getChatConfig({
+          key: 'P_chatbot_verifyProductName_NameWithManyProducts'
+        });
+        return {
+          nextStepChatConfig,
+          replyMessageParameters,
+          chatSessionData: { ...chatSessionData,
+            stepNo: nextStepChatConfig.stepNo
+          }
+        };
+      } //Invalid Name
+      else {
+          chatSessionData.cartItem = null;
+          const nextStepChatConfig = getChatConfig({
+            key: 'P_chatbot_verifyProductName_InvalidName'
+          });
+          return {
+            nextStepChatConfig,
+            replyMessageParameters,
+            chatSessionData: { ...chatSessionData,
+              stepNo: nextStepChatConfig.stepNo
+            }
+          };
+        }
+  }
+}
+;
+
+/***/ }),
+
+/***/ "../../../services/ChatBot/src/infrastructure/utils/functions/verifyProductQuantity.js":
+/*!**********************************************************************************************************************************!*\
+  !*** D:/Softmills/Pharma/src/nodejs-pharma-backend/services/ChatBot/src/infrastructure/utils/functions/verifyProductQuantity.js ***!
+  \**********************************************************************************************************************************/
+/*! exports provided: verifyProductQuantity */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "verifyProductQuantity", function() { return verifyProductQuantity; });
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! source-map-support/register */ "../../source-map-support/register.js");
+/* harmony import */ var source_map_support_register__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(source_map_support_register__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config_di_setup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../config/di-setup */ "../../../services/ChatBot/src/infrastructure/config/di-setup.js");
+
+
+const {
+  getChatConfig
+} = __webpack_require__(/*! ../chatBot-message-manager */ "../../../services/ChatBot/src/infrastructure/utils/chatBot-message-manager.js");
+
+ // Params  :  recivedChatTextMessage , chatSessionData
+// returns :  {
+//    nextStepChatConfig =  Chat Step Config
+//    replyMessageParameters =  Reply Chat Message Parameters
+//    chatSessionData =  Update chatSessionData with next step
+//  }
+
+async function verifyProductQuantity(recivedChatTextMessage, chatSessionData) {
+  const {
+    user,
+    chatId
+  } = { ...chatSessionData
+  };
+  let replyMessageParameters = {};
+  const chatBotService = _config_di_setup__WEBPACK_IMPORTED_MODULE_1__["container"].resolve("chatBotService");
+  const isValidNumber = parseInt(recivedChatTextMessage) >= 0;
+  const enteredQuantity = parseInt(recivedChatTextMessage);
+
+  if (!isValidNumber) {
+    return {
+      nextStepChatConfig: {
+        key: 'P_chatbot_verifyNumber_InvalidNumber'
+      },
+      replyMessageParameters,
+      chatSessionData: { ...chatSessionData,
+        stepNo: nextStepChatConfig.stepNo
+      }
+    };
+  } else {
+    if (enteredQuantity == 0) {
+      // remove from Cart
+      let {
+        productVariantId
+      } = chatSessionData.cartItem;
+      await chatBotService.RemovePhamarcyUserCartItem(user.id, productVariantId);
+      const nextStepChatConfig = getChatConfig({
+        key: 'P_chatbot_enterNewProductName'
+      });
+      chatSessionData.cartItem = null;
+      return {
+        nextStepChatConfig,
+        replyMessageParameters,
+        chatSessionData: { ...chatSessionData,
+          stepNo: nextStepChatConfig.stepNo
+        }
+      };
+    } else {
+      // Add Notes to CartItem
+      chatSessionData.cartItem = { ...chatSessionData.cartItem,
+        quantity: enteredQuantity
+      };
+      const nextStepChatConfig = getChatConfig({
+        key: 'P_chatbot_verifyProductName_InvalidName'
+      });
+      return {
+        nextStepChatConfig,
+        replyMessageParameters,
+        chatSessionData: { ...chatSessionData,
+          stepNo: nextStepChatConfig.stepNo
+        }
+      };
+    }
+  }
 }
 ;
 
@@ -933,11 +1223,7 @@ var Localize = __webpack_require__(/*! localize */ "../../localize/lib/localize.
 let localization = new Localize({
   //================
   //====Pharmacy====
-  //================
-  "P_chatbot_checkNewMessageReceived": {
-    "en-us": "checkNeMessagReceived",
-    "ar": ""
-  },
+  //================ 
   "P_chatbot_notRegistered": {
     "en-us": "Thanks for contacting Pharma company, \n You can contact us with $[1]",
     "ar": ""
@@ -948,10 +1234,6 @@ let localization = new Localize({
   },
   "P_chatbot_noOrderNoDraft": {
     "en-us": "Welcome to $[1] pharmacy, \n You can create order from the website $[2] \n You can contact us with $[3] \n Or enter the product name",
-    "ar": ""
-  },
-  "P_chatbot_newMessage_VerifyProductName": {
-    "en-us": "",
     "ar": ""
   },
   "P_chatbot_verifyProductName_InvalidName": {
@@ -974,16 +1256,8 @@ let localization = new Localize({
     "en-us": "Invalid number of boxes please try again \n To change the product enter 0",
     "ar": ""
   },
-  "P_chatbot_verifyNumber_ChangeProduct": {
-    "en-us": "Enter the other product name, Or you don't need to add new product",
-    "ar": ""
-  },
   "P_chatbot_enterNewProductName": {
-    "en-us": "Enter the new product name",
-    "ar": ""
-  },
-  "P_chatbot_noChangeInProductName": {
-    "en-us": "No change in product name",
+    "en-us": "Enter the new product name, Or you don't need to add new product?",
     "ar": ""
   },
   "P_chatbot_enterNotes": {
@@ -994,16 +1268,8 @@ let localization = new Localize({
     "en-us": "Your order contains: \n $[1] \n Do you want to confirm the order 1- Confirm \n 2- Edit or add to order",
     "ar": ""
   },
-  "P_chatbot_editOrder": {
+  "P_chatbot_editProducts": {
     "en-us": "Enter the product name to edit or add new, you don't need to add new?",
-    "ar": ""
-  },
-  "P_chatbot_doNotAddNew": {
-    "en-us": "Your order contains: \n $[1] \n Do you want to confirm tje order 1- Confirm \n 2- Edit or add to order",
-    "ar": ""
-  },
-  "P_chatbot_addNewProductName": {
-    "en-us": "Add new product name",
     "ar": ""
   },
   "P_chatbot_confirmOrder": {
@@ -1011,7 +1277,7 @@ let localization = new Localize({
     "ar": ""
   },
   "P_chatbot_noOrderButHasDraft": {
-    "en-us": "Welcome $[1] , \n You can contact us with $[2] \n You can complete order from the website $[3] \n You have added these products for your order: $[4] \n Do you need 1- Confirm order 2- Edit or add in order",
+    "en-us": "Welcome $[1] , \n You can contact us with $[2] \n You can complete order from the website $[3] \n You have added these products for your order: \n $[4] \n Do you need 1- Confirm order 2- Edit or add in order",
     "ar": ""
   },
   "P_chatbot_sendSupplierOfferToClient": {
@@ -1024,11 +1290,7 @@ let localization = new Localize({
   },
   //================
   //====Supplier====
-  //================
-  "S_chatbot_checkNewMessageReceived": {
-    "en-us": "",
-    "ar": ""
-  },
+  //================ 
   "S_chatbot_notRegistered": {
     "en-us": "Thanks for contacting Pharma company, \n You can contact us with $[1]",
     "ar": ""
@@ -1120,6 +1382,58 @@ class chatBotService {
     const result = await invokeLambda(constants.serverless.Services.OrderSystem, {
       endpoint: '/user/cart',
       httpMethod: 'GET',
+      query: payload
+    });
+    return JSON.parse(JSON.parse(result.Payload).body).data;
+  }
+
+  async AddPhamarcyUserCartItem(pharmacyUserId, productVariantId, quantity, note) {
+    const payload = {
+      "pharmacyUserId": pharmacyUserId,
+      "productVariantId": productVariantId,
+      "quantity": quantity
+    };
+    const result = await invokeLambda(constants.serverless.Services.OrderSystem, {
+      endpoint: '/user/cart/item',
+      httpMethod: 'POST',
+      query: payload
+    });
+    return JSON.parse(JSON.parse(result.Payload).body).data;
+  }
+
+  async RemovePhamarcyUserCartItem(pharmacyUserId, productVariantId) {
+    const payload = {
+      "pharmacyUserId": pharmacyUserId,
+      "productVariantId": productVariantId
+    };
+    const result = await invokeLambda(constants.serverless.Services.OrderSystem, {
+      endpoint: '/user/cart/item',
+      httpMethod: 'DELETE',
+      query: payload
+    });
+    return JSON.parse(JSON.parse(result.Payload).body).data;
+  }
+
+  async SavePhamarcyUserCartNote(pharmacyUserId, note) {
+    const payload = {
+      "pharmacyUserId": pharmacyUserId,
+      "note": note
+    };
+    const result = await invokeLambda(constants.serverless.Services.OrderSystem, {
+      endpoint: '/user/cart',
+      httpMethod: 'POST',
+      query: payload
+    });
+    return JSON.parse(JSON.parse(result.Payload).body).data;
+  }
+
+  async checkoutPhamarcyUserCart(pharmacyUserId) {
+    const payload = {
+      "pharmacyUserId": pharmacyUserId
+    };
+    const result = await invokeLambda(constants.serverless.Services.OrderSystem, {
+      endpoint: '/user/cart/checkout',
+      httpMethod: 'POST',
       query: payload
     });
     return JSON.parse(JSON.parse(result.Payload).body).data;

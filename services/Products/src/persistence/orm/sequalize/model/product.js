@@ -14,6 +14,9 @@ export function Product (sequelize, DataTypes)   {
   }, {});
   Product.associate = function(models) {
     // associations can be defined here
+    Product.hasMany(models.ProductVariant, { 
+      foreignKey: "productId"
+    });
   };
   return Product;
 };

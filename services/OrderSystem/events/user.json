@@ -5,7 +5,7 @@
   "httpMethod": "GET",
   "isBase64Encoded": false,
   "queryStringParameters": {
-    "mobile": "2010"
+    "mobile": "3010"
   },
   "pathParameters": {
     "proxy": "/user"

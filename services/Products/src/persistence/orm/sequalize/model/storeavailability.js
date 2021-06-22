@@ -1,7 +1,7 @@
 export function StoreAvailability (sequelize, DataTypes) {
   const StoreAvailability = sequelize.define('StoreAvailability', {
     supplierId: DataTypes.INTEGER,
-    productVarientId: DataTypes.INTEGER,
+    productVariantId: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     price: DataTypes.DECIMAL,
     discount: DataTypes.DECIMAL,

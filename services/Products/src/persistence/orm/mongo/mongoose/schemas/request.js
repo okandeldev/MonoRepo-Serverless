@@ -9,7 +9,7 @@ const requestSchema = mongoose.Schema({
         type: String
     },
     requestItems: [{
-        productVarientId: {
+        productVariantId: {
             type: Number,
             required: true
         },

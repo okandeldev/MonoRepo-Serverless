@@ -28,7 +28,7 @@ export class cartItemRepository extends cartItemRepositoryBase {
     if (!res) {
       return null;
     }
-    return new cartItem(res.id, res);
+    return new cartItem(id, cartItemData);
   }
 
   //delete cart item

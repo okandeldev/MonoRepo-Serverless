@@ -45,7 +45,9 @@ if (config.use_env_variable) {
 //   });
 
   import { Product} from "./product"
+  import { ProductVariant} from "./productvariant"
   db['Product'] = Product(sequelize, Sequelize.DataTypes);
+  db['ProductVariant'] = ProductVariant(sequelize, Sequelize.DataTypes);
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {

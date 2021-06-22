@@ -11,7 +11,7 @@ module.exports = {
       cartId: {
         type: Sequelize.INTEGER
       },
-      productVarientId: {
+      productVariantId: {
         type: Sequelize.INTEGER
       },
       productName: {

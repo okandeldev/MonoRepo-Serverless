@@ -44,11 +44,20 @@ export class cartRepository extends cartRepositoryBase {
   }
 
   //update cart
-  async updateCart(id, cartData) {
-    const res = await this.Cart.update({...cartData}, {where: {id: id}})
-    if (!res) {
-      return null;
+  async updateCart(cartData) {
+    const cart_exist = await this.Cart.findOne({
+      where: {id: cartData.id},
+      include: [{
+        model: this.db2.CartItem,
+        as: 'CartItems'
+      }],
+    });
+    if (!cart_exist) {
+      return null
     }
-    return new cart(res.id, res);
+    await this.Cart.update({...cartData}, {where: {id: cartData.id}})
+    let updated_cart = new cart(cartData.id, cartData);
+    updated_cart.CartItems = cart_exist.CartItems
+    return updated_cart;
   }
 }

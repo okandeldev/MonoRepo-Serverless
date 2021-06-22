@@ -14,14 +14,26 @@ export class productRepository extends productRepositoryBase {
   
   //findAll Products
   async findAll(keyword) { 
-      const queryResult = await this.Product.findAll({
+      const res = await this.Product.findAll({
         where: {
           name: { 
             [Op.like]: `%${keyword}%`
           }
-        }
+        },
+        include: [{
+          model: this.db1.ProductVariant,
+          as: 'ProductVariants'
+        }],
       })
-      return queryResult.map((item)=> new product(item.id,item)) 
+      if (!res){
+        return null;
+      }
+      console.log('products res', res);
+      return res.map((item)=> {
+        let productObj = new product(item.id,item) 
+        productObj.ProductVariants = item.ProductVariants;
+        return productObj; 
+      })
   }
   async save(domainProduct) {
     await this.Product.update(domainProduct).then(function (res) {

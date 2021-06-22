@@ -16,9 +16,10 @@ export async function checkNewMessageReceived (recivedChatTextMessage,chatSessio
     let replyMessageParameters = {pharmacy_name}
     
     //Has order but no draft
-    if (requestsCount > 0  && cartItemsCount ==0 ){ 
+    if (requestsCount > 0  && cartItemsCount ==0 ){
+        const nextStepChatConfig = getChatConfig({key:'P_chatbot_hasOrderNoDraft'}) 
         return {
-            nextStepChatConfig: {key:'P_chatbot_hasOrderNoDraft'},
+            nextStepChatConfig,
             replyMessageParameters,
             chatSessionData:{
                 ...chatSessionData,
@@ -41,12 +42,13 @@ export async function checkNewMessageReceived (recivedChatTextMessage,chatSessio
     else  if (requestsCount ==0   && cartItemsCount > 0 ){  
         const chatBotService = container.resolve("chatBotService");     
         const cart = await chatBotService.getPhamarcyUserCart(user.id)
-         
-        replyMessageParameters['pharmacy_name'] = user.Pharmacy.name
-        replyMessageParameters['products'] = cart.CartItems.map((item)=> + `${item.quantity} ${item.productName} \n`).join('')
+        
+        const nextStepChatConfig = getChatConfig({key:'P_chatbot_noOrderButHasDraft'}) 
+        replyMessageParameters['pharmacy_name'] = user.Pharmacy.name 
+        replyMessageParameters['products'] = cart.CartItems.map((item)=> `${item.quantity} ${item.productName} \n`).join('')
        
         return {
-            nextStepChatConfig: {key:'P_chatbot_noOrderButHasDraft'},
+            nextStepChatConfig,
             replyMessageParameters,
             chatSessionData:{
                 ...chatSessionData,

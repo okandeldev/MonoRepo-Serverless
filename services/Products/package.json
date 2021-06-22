@@ -6,7 +6,9 @@
   "scripts": {
     "start": "serverless invoke local -f getOrders",
     "test": "serverless-bundle test",
-    "ci-helm-lint": "eslint --fix-dry-run"
+    "ci-helm-lint": "eslint --fix-dry-run",
+    "seed": "yarn sequelize-cli db:seed:all",
+    "migrate": "yarn sequelize-cli db:migrate"
   }, 
   "devDependencies": {
     "babel-plugin-source-map-support": "^2.1.3",
