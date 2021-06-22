@@ -17,19 +17,21 @@ export class pharmacyUser extends base{
   }
 
    // User Cart
-   #cart = {};
+   #cart = null;
    get Cart () { 
      return this.#cart;
    } 
-   set Cart (value) { 
-     let cartObj = new cart(value.id,value)
-     cartObj.CartItems = value.CartItems;
-     this.#cart = cartObj;
+   set Cart (value) {
+     if (value) {
+      let cartObj = new cart(value.id,value)
+      cartObj.CartItems = value.CartItems;
+      this.#cart = cartObj;
+    }
    }
 
    // Cart Items Count 
   get CartItemsCount () { 
-    return this.#cart.CartItems.length;
+    return this.#cart?.CartItems?.length || 0;
   }  
 
   #request = {};

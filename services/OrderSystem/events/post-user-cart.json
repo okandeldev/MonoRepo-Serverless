@@ -8,7 +8,7 @@
     "pharmacyUserId": "1"
   },
   "pathParameters": {
-    "proxy": "/user/cart"
+    "proxy": "/api/user/cart"
   },
   "stageVariables": { 
   },

@@ -8,7 +8,7 @@
     "mobile": "3010"
   },
   "pathParameters": {
-    "proxy": "/user"
+    "proxy": "/api/user"
   },
   "stageVariables": {},
   "headers": {
