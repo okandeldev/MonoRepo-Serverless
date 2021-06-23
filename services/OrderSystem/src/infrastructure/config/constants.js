@@ -13,10 +13,11 @@ export let constants = {
   },
   //Mongo Collection
   mongoCollections:{
-    chatBotSession : 'chatBotSession' 
+    chatBotSession : 'chatBotSession',
+    requests: 'requests'
   },
   urls:{
-    contacts_url: `${BASE_URL}/constactus`,
+    contactus_url: `${BASE_URL}/constactus`,
     track_order_url:`${BASE_URL}/trackorder`,
     offer_url:`${BASE_URL}/offer`,
     create_order_url:`${BASE_URL}/create_order`,

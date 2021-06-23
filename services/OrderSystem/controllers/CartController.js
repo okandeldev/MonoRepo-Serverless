@@ -40,4 +40,31 @@ export class CartController {
     }
   }
 
+  async checkout(req, res) {
+    const data = req.body;
+    const result = await this.cartService.checkout(data);
+    if (result) {
+      res.send({
+        statusCode: 200,
+        body: {
+          message: "Done"
+        }
+      })
+    } else if (result == null) {
+      res.send({
+        statusCode: 404,
+        body: {
+          error: "No items in the cart"
+        },
+      })
+    } else {
+      res.send({
+        statusCode: 500,
+        body: {
+          error: "Server error"
+        },
+      })
+    }
+  }
+
 }

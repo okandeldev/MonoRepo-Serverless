@@ -16,6 +16,7 @@ import { supplierUserRepository } from "../../persistence/repositories/supplierU
 import { orderRepository } from "../../persistence/repositories/orderRepository"
 import { cartRepository } from "../../persistence/repositories/cartRepository"
 import { cartItemRepository } from "../../persistence/repositories/cartItemRepository"
+import { requestRepository } from "../../persistence/repositories/requestRepository"
 import * as db2 from "../../persistence/orm/sequalize/model/index"
 const mongoDao = require('../../../../../libs/orm/mongo');
 const container = awilix.createContainer({
@@ -42,6 +43,7 @@ function setup() {
     orderRepository: awilix.asClass(orderRepository),
     cartRepository: awilix.asClass(cartRepository),
     cartItemRepository: awilix.asClass(cartItemRepository),
+    requestRepository: awilix.asClass(requestRepository),
 
     // inject object with database connection pooling
     db2: awilix.asValue(db2.default),  

@@ -13,9 +13,9 @@ export class productService {
   //  }
   async SearchProductsAndSuggestions(keyword) {
     let products = await this.productRepository.findAll(keyword.trim());
-    const ExcatProduct = (products.filter((p)=> p.name.toLowerCase() == keyword.toLowerCase()))
+    const ExcatProduct = (products.filter((p)=> p.name.toLowerCase() == keyword.toLowerCase() && p.ProductVariants?.length >0))
     let matchedProduct = (ExcatProduct.length== 1)? ExcatProduct[0] : null;  
-    let suggestedProducts = (ExcatProduct.length == 0)? products : [];
+    let suggestedProducts = (ExcatProduct.length == 0)? products.filter((p)=> p.name.toLowerCase() == keyword.toLowerCase()) : [];
       
     return {
       matchedProduct,

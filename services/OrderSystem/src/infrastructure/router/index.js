@@ -14,6 +14,9 @@ export let routers = function (app) {
   app.post("/api/user/cart", (req, res) => {
     CartController.updateCart(req, res)
   });
+  app.post("/api/user/cart/checkout", (req, res) => {
+    CartController.checkout(req, res)
+  });
   app.post("/api/user/cart/item", (req, res) => {
     CartItemController.createCartItem(req, res)
   });
