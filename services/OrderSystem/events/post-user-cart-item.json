@@ -1,6 +1,6 @@
 {
   "body": {
-    "userId": 1,
+    "userId": 3,
     "cartItem": {
       "cartId": 1,
       "productVariantId": 2,
@@ -8,8 +8,7 @@
       "quantity": 5,
       "note": "some text!"
     }
-  },
-  "resource": "/{proxy+}",
+  }, 
   "path": "/api/user/cart/item",
   "httpMethod": "POST",
   "isBase64Encoded": false,

@@ -11,6 +11,7 @@ export class cartItemService {
     if (!cart) {
       cart = await this.cartRepository.createCart(data.cart)
     }
+    data.cartItem.cartId = cart.id;
 
     let cartItems = cart.CartItems;
     if (cart.CartItems.length > 0) {

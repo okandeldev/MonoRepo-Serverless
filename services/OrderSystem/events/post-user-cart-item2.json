@@ -1,0 +1,62 @@
+{
+  "resource": "/api/user/cart/item",
+  "path": "/api/user/cart/item",
+  "httpMethod": "POST",
+  "headers": {
+  "Accept": "*/*",
+  "Accept-Encoding": "deflate, gzip",
+  "CloudFront-Forwarded-Proto": "https",
+  "CloudFront-Is-Desktop-Viewer": "true",
+  "CloudFront-Is-Mobile-Viewer": "false",
+  "CloudFront-Is-SmartTV-Viewer": "false",
+  "CloudFront-Is-Tablet-Viewer": "false",
+  "CloudFront-Viewer-Country": "US",
+  "Content-Type": "application/json",
+  "Host": "ox53v9d8ug.execute-api.us-east-1.amazonaws.com",
+  "Via": "1.1 f1836a6a7245cc3f6e190d259a0d9273.cloudfront.net (CloudFront)",
+  "X-Amz-Cf-Id": "LVcBZU-YqklHty7Ii3NRFOqVXJJEr7xXQdxAtFP46tMewFpJsQlD2Q==",
+  "X-Amzn-Trace-Id": "Root=1-59ec25c6-1018575e4483a16666d6f5c5",
+  "X-Forwarded-For": "69.171.225.87, 52.46.17.84",
+  "X-Forwarded-Port": "443",
+  "X-Forwarded-Proto": "https",
+  "X-Hub-Signature": "sha1=10504e2878e56ea6776dfbeae807de263772e9f2"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+  "path": "/dev",
+  "accountId": "001513791584",
+  "resourceId": "i6d2tyihx7",
+  "stage": "dev",
+  "requestId": "d58c5804-b6e5-11e7-8761-a9efcf8a8121",
+  "identity": {
+  "cognitoIdentityPoolId": null,
+  "accountId": null,
+  "cognitoIdentityId": null,
+  "caller": null,
+  "apiKey": "",
+  "sourceIp": "69.171.225.87",
+  "accessKey": null,
+  "cognitoAuthenticationType": null,
+  "cognitoAuthenticationProvider": null,
+  "userArn": null,
+  "userAgent": null,
+  "user": null
+  },
+  "resourcePath": "/api/user/cart/item",
+  "httpMethod": "POST",
+  "apiId": "ox53v9d8ug"
+  }, 
+  "body":{
+    "userId": 3,
+    "cartItem": {
+      "cartId": 1,
+      "productVariantId": 2,
+      "productName": "product 1",
+      "quantity": 5,
+      "note": "some text!"
+    }
+  },
+  "isBase64Encoded": true
+  }
