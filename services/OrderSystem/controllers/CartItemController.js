@@ -10,7 +10,7 @@ export class CartItemController {
     console.log('createCartItem', path, queryStringParameters, headers, body);
     res.send({
           statusCode: 200,
-          data: {a:123}
+          data: {a:123,path, queryStringParameters, headers, body}
     })
 
     // // const data = req.apiGateway.event.body;
