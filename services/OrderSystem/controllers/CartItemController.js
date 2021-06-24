@@ -25,27 +25,34 @@ export class CartItemController {
 
   async deleteCartItem(req, res) {
     const id = req.body.id;
-    const cartItem = await this.cartItemService.deleteCartItem(id);
-    if (cartItem) {
-      res.send({
-        statusCode: 200,
-        data: {
-          message: "Cart item deleted successfully"
-        }
-      })
-    } else if (cartItem == null) {
-      res.send({
-        statusCode: 404,
-        data: {
-          error: "Cart item not found"
-        }})
-    } else {
-      res.send({
-        statusCode: 500,
-        data: {
-          error: "Server error"
-        },
-      })
-    }
+    const data = req.body;
+    res.send({
+      statusCode: 200,
+      data:  data,
+      id:id
+    })
+    // console.log('deleteCartItem');
+    // const cartItem = await this.cartItemService.deleteCartItem(id);
+    // if (cartItem) {
+    //   res.send({
+    //     statusCode: 200,
+    //     data: {
+    //       message: "Cart item deleted successfully"
+    //     }
+    //   })
+    // } else if (cartItem == null) {
+    //   res.send({
+    //     statusCode: 404,
+    //     data: {
+    //       error: "Cart item not found"
+    //     }})
+    // } else {
+    //   res.send({
+    //     statusCode: 500,
+    //     data: {
+    //       error: "Server error"
+    //     },
+    //   })
+    // }
   }
 }
