@@ -1,0 +1,21 @@
+{
+  "resource": "/api/user/cart/item",
+  "path": "/api/user/cart/item",
+  "httpMethod": "DELETE",
+  "headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "deflate, gzip", 
+      "Content-Type": "application/json"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null, 
+  "requestContext": {  
+      "resourcePath": "/api/user/cart/item",
+      "httpMethod": "DELETE"
+  }, 
+  "body": {
+    "id":28
+  },
+  "isBase64Encoded": true
+} 

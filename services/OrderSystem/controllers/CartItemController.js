@@ -5,15 +5,7 @@ export class CartItemController {
     this.cartItemService = cartItemService;
   }
 
-  async createCartItem(req, res) {
-    // const { path, queryStringParameters, headers, body } = req;
-    // console.log('createCartItem', path, queryStringParameters, headers, body);
-    // res.send({
-    //       statusCode: 200,
-    //       data: {a:123,path, queryStringParameters, headers, body}
-    // })
-
-    // const data = req.apiGateway.event.body;
+  async createCartItem(req, res) { 
     const data = req.body;
     const cartItem = await this.cartItemService.createCartItem(data);
     if (cartItem) {
