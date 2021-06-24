@@ -23,13 +23,12 @@ export class CartItemController {
     }
   }
 
-  async deleteCartItem(req, res) {
-    const id = req.body.id;
-    const data = req.body;
+  async deleteCartItem(req, res) { 
+    const {data, query} = req; 
     res.send({
       statusCode: 200,
       data:  data,
-      id:id
+      query: query
     })
     // console.log('deleteCartItem');
     // const cartItem = await this.cartItemService.deleteCartItem(id);
