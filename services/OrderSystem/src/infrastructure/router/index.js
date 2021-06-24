@@ -20,7 +20,7 @@ export let routers = function (app) {
   app.post("/api/user/cart/item", (req, res) => {
     CartItemController.createCartItem(req, res)
   });
-  app.delete("/api/user/cart/item", (req, res) => {
+  app.delete("/api/user/cart/item/:id", (req, res) => {
     CartItemController.deleteCartItem(req, res)
   });
 };
