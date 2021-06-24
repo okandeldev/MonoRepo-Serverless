@@ -9,8 +9,7 @@ export class cartItemService {
   async createCartItem(data) {
     let cart = await this.cartRepository.getPhamarcyUserCart(data.userId)
     if (!cart) {
-      // data.cart.pharmacyUserId = data.userId;
-      cart = await this.cartRepository.createCart(data.cart)
+      cart = await this.cartRepository.createCart({pharmacyUserId:data.userId})
     }
     data.cartItem.cartId = cart.id;
 
