@@ -19,7 +19,7 @@ export class cartService {
   // returns :  request Object
   async checkout(data) {
     const cart = await this.cartRepository.getPhamarcyUserCart(data.pharmacyUserId);
-    const cartItems = cart.CartItems;
+    let cartItems = cart.CartItems;
 
     if (cartItems.length > 0) {
       // 1- Create MySQL Request
