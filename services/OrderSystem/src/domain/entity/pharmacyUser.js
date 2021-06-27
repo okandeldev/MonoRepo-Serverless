@@ -34,18 +34,18 @@ export class pharmacyUser extends base{
     return this.#cart?.CartItems?.length || 0;
   }  
 
-  #request = {};
-  get Request () { 
-    return this.#request;
+  #requests = [];
+  get Requests () { 
+    return this.#requests;
   } 
-  set Request (value) { 
-    // let requestObj = new request(value.id,value) 
-    // this.#request = requestObj;
+  set Requests (value) { 
+    let requestObjs = (value)? value.map(r => new request(r.id,r)):[]
+    this.#requests = requestObjs;
   }
 
   // Requests Count
   #requestsCount = 0;
   get RequestsCount () { 
-    return this.#requestsCount;
+    return this.#requests?.length || 0;
   } 
 }; 

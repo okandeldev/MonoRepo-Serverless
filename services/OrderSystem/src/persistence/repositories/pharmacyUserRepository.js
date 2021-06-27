@@ -45,11 +45,11 @@ export class pharmacyUserRepository extends pharmacyUserRepositoryBase  {
       }); 
       if (!res){
         return null;
-      }
+      } 
       let pharmacyUserObj = new pharmacyUser(res.id, res); 
       pharmacyUserObj.Pharmacy = res.Pharmacy;
       pharmacyUserObj.Cart = res.Cart; 
-      pharmacyUserObj.Request = res.Request;  
+      pharmacyUserObj.Requests = res.Requests;  
       return pharmacyUserObj;
 
     } catch (error) {
