@@ -7,7 +7,9 @@
       "Accept-Encoding": "deflate, gzip", 
       "Content-Type": "application/json"
   },
-  "queryStringParameters": null,
+  "queryStringParameters": {
+    "id":12
+  },
   "pathParameters": null,
   "stageVariables": null, 
   "requestContext": {  

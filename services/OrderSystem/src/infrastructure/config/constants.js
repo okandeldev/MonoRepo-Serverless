@@ -12,8 +12,7 @@ export let constants = {
     name:'English'
   },
   //Mongo Collection
-  mongoCollections:{
-    chatBotSession : 'chatBotSession',
+  mongoCollections:{ 
     requests: 'requests'
   },
   urls:{

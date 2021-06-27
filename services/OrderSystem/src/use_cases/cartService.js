@@ -32,7 +32,7 @@ export class cartService {
       const mysqlRequest = await this.requestRepository.createMySQLRequest(sqlRequestObj)
 
       // 2- Create Mongo Request
-      cartItems.map(async (item) => {
+      cartItems = cartItems.map(async (item) => {
         item.requestId = mysqlRequest.id
         // item.pharmacyNote = item.note
       })
@@ -50,10 +50,7 @@ export class cartService {
       await this.requestRepository.createMongoRequest(mongoRequestObj)
 
       // 3- Empty Cart
-      cartItems.forEach(async (item) => {
-        await this.cartItemRepository.deleteCartItem(item.id)
-      })
-
+      await this.cartItemRepository.deleteCartItem({cartId:item.cartId})      
       return "Done"
 
     } else {

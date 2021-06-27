@@ -34,7 +34,7 @@ export class cartItemService {
     }
   }
 
-  async deleteCartItem(id) {
-    return this.cartItemRepository.deleteCartItem(id)
+  async deleteCartItem({id,cartId}) {
+    return this.cartItemRepository.deleteCartItem({id,cartId})
   }
 }  

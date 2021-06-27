@@ -32,8 +32,8 @@ export class cartItemRepository extends cartItemRepositoryBase {
   }
 
   //delete cart item
-  async deleteCartItem(id) {
-    const res = await this.CartItem.destroy({where: {id: id}});
+  async deleteCartItem({id,cartId}) {
+    const res = await this.CartItem.destroy({where: {id,cartId}});
     if (!res) {
       return null;
     }
