@@ -6,8 +6,9 @@ export class ChatAPIController {
     this.mongoDao = mongoDao;
   } 
   
-  webhook(req, res) {
-    const data =   req.body;  
+  async webhook(req, res) {
+    const data =   req.body; 
+    await this.mongoDao.insertOne("chatbotAPI", {aaa:123});
     // for (let i in data.messages) { 
     //     const author = data.messages[i].author; //ex. 17472822486@c.us 
     //     const mobile = author.replace("@c.us", "");
@@ -27,7 +28,6 @@ export class ChatAPIController {
     res.send({
       statusCode: 200,
       data: data,
-    })
-    return {aa:123}
+    }) 
   }
 }
