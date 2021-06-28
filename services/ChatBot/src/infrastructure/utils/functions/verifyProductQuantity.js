@@ -8,10 +8,11 @@ import { container, setup } from '../../config/di-setup'
 //    chatSessionData =  Update chatSessionData with next step
 //  }
 export async function verifyProductQuantity (recivedChatTextMessage,chatSessionData) {
-    const {user ,chatId} = {...chatSessionData} 
-    
-    let replyMessageParameters = {}
+    const {user ,chatId} = {...chatSessionData}
     const chatBotService = container.resolve("chatBotService");
+    const cart = await chatBotService.getPhamarcyUserCart(user.id)
+    
+    let replyMessageParameters = {} 
     const isValidNumber = parseInt(recivedChatTextMessage) >= 0
     const enteredQuantity = parseInt(recivedChatTextMessage)
     if (!isValidNumber){
@@ -25,33 +26,29 @@ export async function verifyProductQuantity (recivedChatTextMessage,chatSessionD
         }
     }else 
     {
-        if (enteredQuantity ==0){ 
+        if (enteredQuantity == 0){ 
             // remove from Cart
-            let {productVariantId} = chatSessionData.cartItem;
-            await chatBotService.RemovePhamarcyUserCartItem(user.id,productVariantId)
-            const nextStepChatConfig = getChatConfig({key:'P_chatbot_enterNewProductName'})
-            chatSessionData.cartItem = null; 
-            return {
-                nextStepChatConfig,
-                replyMessageParameters,
-                chatSessionData:{
-                    ...chatSessionData,
-                    stepNo:nextStepChatConfig.stepNo
-                } 
+            const {productVariantId} = chatSessionData.cartItem;
+            const cartItem = cart.CartItems.filter(x=> x.productVariantId == productVariantId); 
+            if (cartItem.length >0){   
+                await chatBotService.RemovePhamarcyUserCartItem(cartItem[0].id)
             }
-        }else{
-            // Add Notes to CartItem
-            chatSessionData.cartItem = {...chatSessionData.cartItem, quantity: enteredQuantity}
-            const nextStepChatConfig = getChatConfig({key:'P_chatbot_verifyProductName_InvalidName'})
-            return {
-                nextStepChatConfig,
-                replyMessageParameters,
-                chatSessionData:{
-                    ...chatSessionData,
-                    stepNo:nextStepChatConfig.stepNo
-                } 
+        }else{ 
+            if (chatSessionData.cartItem) {
+                const {productVariantId, productName, note} = chatSessionData.cartItem 
+                const res = await chatBotService.AddPhamarcyUserCartItem(user.id,productVariantId, productName, enteredQuantity, note)
+                
+            } 
+        }
+        chatSessionData.cartItem = null;  
+        const nextStepChatConfig = getChatConfig({key:'P_chatbot_enterNewProductName'})
+        return {
+            nextStepChatConfig,
+            replyMessageParameters,
+            chatSessionData:{
+                ...chatSessionData,
+                stepNo:nextStepChatConfig.stepNo
             }
-
-        } 
+        }
     } 
 };

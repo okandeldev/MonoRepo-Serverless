@@ -20,7 +20,7 @@
     "message": {
       "key": "S_chatbot_notRegistered",
       "params": [
-        "contacts_url"
+        "contactus_url"
       ]
     },
     "fn": "notRegistered"

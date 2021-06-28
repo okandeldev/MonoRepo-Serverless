@@ -30,8 +30,9 @@ export let constants = {
   ChatRecievedMessage:{
     Accept:['ok','yes','go','right', 'اوك','تمام','نعم'],
     Reject:['no','لأ','لا'],
-    EditProducts:['edit','تعديل'],
-    ProcessProductsToRequest:['ok','process' ,'نفذ' ,'تنفيذ'],
+
+    ProcessProductsToRequest:['1','ok','process' ,'confirm' ,'نفذ' ,'تنفيذ'],
+    EditCartProducts:['2','edit','تعديل'],
 
   }
 };

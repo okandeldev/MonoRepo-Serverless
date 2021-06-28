@@ -27,8 +27,7 @@ export class productRepository extends productRepositoryBase {
       })
       if (!res){
         return null;
-      }
-      console.log('products res', res);
+      } 
       return res.map((item)=> {
         let productObj = new product(item.id,item) 
         productObj.ProductVariants = item.ProductVariants;

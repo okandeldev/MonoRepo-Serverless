@@ -37,7 +37,7 @@
         "pharmacy_name",
         "track_order_url",
         "create_order_url",
-        "contacts_url"
+        "contactus_url"
       ]
     },
     "fn": "verifyProductName"
@@ -53,7 +53,7 @@
       "params": [
         "pharmacy_name",
         "create_order_url",
-        "contacts_url"
+        "contactus_url"
       ]
     },
     "fn": "verifyProductName"

@@ -29,8 +29,9 @@ export async function checkNewMessageReceived (recivedChatTextMessage,chatSessio
     }
     //No order and no draft
     else  if (requestsCount ==0   && cartItemsCount ==0 ){  
+        const nextStepChatConfig = getChatConfig({key:'P_chatbot_noOrderNoDraft'}) 
         return {
-            nextStepChatConfig: {key:'P_chatbot_noOrderNoDraft'},
+            nextStepChatConfig,
             replyMessageParameters,
             chatSessionData:{
                 ...chatSessionData,

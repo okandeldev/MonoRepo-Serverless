@@ -50,7 +50,7 @@ export class cartService {
       await this.requestRepository.createMongoRequest(mongoRequestObj)
 
       // 3- Empty Cart
-      await this.cartItemRepository.deleteCartItem({cartId:item.cartId})      
+      await this.cartItemRepository.deleteCartItem({cartId:cart.id})
       return "Done"
 
     } else {

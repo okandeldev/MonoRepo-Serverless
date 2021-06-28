@@ -1,4 +1,4 @@
-require('custom-env').env();  
+require('custom-env').env();
 export class ProductController {
   constructor({ productService}) { 
     this.productService = productService; 

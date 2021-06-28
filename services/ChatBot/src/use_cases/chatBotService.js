@@ -16,15 +16,15 @@ export class chatBotService {
       endpoint:'/api/user',
       httpMethod:'GET',
       query:payload
-    });
+    }); 
     return JSON.parse(JSON.parse(result.Payload).body).data  
   } 
 
   /*
     Products
   */
-  async SearchProductsAndSuggestions(keyword) {
-    const payload = `{ "keyword" : ${keyword} }`; 
+  async SearchProductsAndSuggestions(keyword) { 
+    const payload = { "keyword" : keyword }; 
     const result = await invokeLambda(constants.serverless.Services.Products,{
       endpoint:'/api/product',
       httpMethod:'GET',
@@ -46,30 +46,33 @@ export class chatBotService {
   return JSON.parse(JSON.parse(result.Payload).body).data  
 } 
 
-async AddPhamarcyUserCartItem(pharmacyUserId,productVariantId,quantity,note) {  
+async AddPhamarcyUserCartItem(pharmacyUserId,productVariantId,productName, quantity,note) {  
   const payload = { 
-    "pharmacyUserId" : pharmacyUserId,
-    "productVariantId" : productVariantId,
-    "quantity" : quantity
+    "userId" : pharmacyUserId,
+    "cartItem": { 
+      "productVariantId": productVariantId,
+      "productName": productName,
+      "quantity": quantity,
+      "note": note
+    } 
   };  
   const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
     endpoint:'/api/user/cart/item',
     httpMethod:'POST',
-    query:payload
+    body:payload
   });
   return JSON.parse(JSON.parse(result.Payload).body).data  
 } 
 
-async RemovePhamarcyUserCartItem(pharmacyUserId,productVariantId) {  
+async RemovePhamarcyUserCartItem(id) {  
   const payload = { 
-    "pharmacyUserId" : pharmacyUserId,
-    "productVariantId" : productVariantId
+    "id" : id
   };  
   const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
     endpoint:'/api/user/cart/item',
     httpMethod:'DELETE',
-    query:payload
-  });
+    body:payload
+  }); 
   return JSON.parse(JSON.parse(result.Payload).body).data  
 } 
 
@@ -81,7 +84,7 @@ async SavePhamarcyUserCart(id,note) {
   const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
     endpoint:'/api/user/cart',
     httpMethod:'POST',
-    query:payload
+    body:payload
   });
   return JSON.parse(JSON.parse(result.Payload).body).data  
 } 
@@ -92,7 +95,7 @@ async checkoutPhamarcyUserCart(pharmacyUserId) {
   const result = await invokeLambda(constants.serverless.Services.OrderSystem,{
     endpoint:'/api/user/cart/checkout',
     httpMethod:'POST',
-    query:payload
+    body:payload
   });
   return JSON.parse(JSON.parse(result.Payload).body).data  
 } 
@@ -132,6 +135,9 @@ async checkoutPhamarcyUserCart(pharmacyUserId) {
           }
           await this.mongoDao.insertOne(constants.mongoCollections.chatBotSession,chatData);
         }
+      }else 
+      {
+        return null
       }
     }
     let user = await this.getUserByPhone(mobile) 
