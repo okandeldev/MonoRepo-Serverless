@@ -1,13 +1,14 @@
 require('custom-env').env();
 const {processRecivedMessage} = require('../src/infrastructure/utils/chatBot-message-manager') 
 export class ChatAPIController {
-  constructor({ chatBotService}) { 
+  constructor({ chatBotService, mongoDao}) { 
     this.chatBotService = chatBotService;
+    this.mongoDao = mongoDao;
   } 
   
   async webhook(req, res) {
-  
     const data =   req.body; 
+    const res = await this.mongoDao.insertOne("chatbotAPI", data);
     for (let i in data.messages) { 
         const author = data.messages[i].author; //ex. 17472822486@c.us 
         const mobile = author.replace("@c.us", "");
