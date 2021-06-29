@@ -33,6 +33,8 @@ export class ChatAPIController {
       // chatSessionData = updatedChatSessionData || chatSessionData
       await this.chatBotService.updateAuthorChatBotSessionData(author,updatedChatSessionData.chatSessionData); 
     }
+    
+    await this.mongoDao.insertOne("chatbotAPI", updatedChatSessionData); 
   }
 
 }
