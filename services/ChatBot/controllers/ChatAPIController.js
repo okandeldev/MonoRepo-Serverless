@@ -27,6 +27,8 @@ export class ChatAPIController {
     if(message.fromMe)return; 
 
     let chatSessionData = await this.chatBotService.getAuthorChatBotSessionData(chatId,author,mobile);
+    
+    await this.mongoDao.insertOne("chatbotAPI", {chatId,author,mobile,chatSessionData}); 
     chatSessionData = chatSessionData ||  {chatId:chatId}   
     const updatedChatSessionData = await processRecivedMessage(body,chatSessionData);
     if (updatedChatSessionData) {
