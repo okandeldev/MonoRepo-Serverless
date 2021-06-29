@@ -6,19 +6,19 @@ export class ChatAPIController {
     this.mongoDao = mongoDao;
   } 
   
-  webhook(req, res) {
+  webhook = (req, res) => {
     const data =   req.body; 
-    this.mongoDao.insertOne("chatbotAPI", data);
-    const self = this
-    for (let i in data.messages) { 
-      self.handleMessage(data.messages[i])
+    this.mongoDao.insertOne("chatbotAPI", data); 
+    for (let i in data.messages) {
+      this.handleMessage(data.messages[i])
     }
     res.send({
       statusCode: 200,
       data: data,
-    }) 
+    })
   }
-  async handleMessage(message) {
+
+   handleMessage = async (message) => {
     const author = message.author; //ex. 17472822486@c.us 
     const mobile = author.replace("@c.us", "");
     const body = message.body;

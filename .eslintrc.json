@@ -26,7 +26,6 @@
         "no-undef":0,
         "@typescript-eslint/explicit-module-boundary-types":0,
         "no-unreachable":0,
-        "@typescript-eslint/no-extra-semi":0,
-        "no-this-alias":0
+        "@typescript-eslint/no-extra-semi":0
     }
 }
