@@ -9,9 +9,9 @@ export class ChatAPIController {
   webhook = async (req, res) => {
     const data =   req.body; 
     await this.mongoDao.insertOne("chatbotAPI", data); 
-    // for (let i in data.messages) {
-    //   this.handleMessage(data.messages[i])
-    // }
+    for (let i in data.messages) {
+      this.handleMessage(data.messages[i])
+    }
     res.send({
       statusCode: 200,
       data: data,
