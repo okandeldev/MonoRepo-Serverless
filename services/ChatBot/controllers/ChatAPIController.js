@@ -10,7 +10,7 @@ export class ChatAPIController {
     const data =   req.body; 
     this.mongoDao.insertOne("chatbotAPI", data);
     for (let i in data.messages) { 
-      handleMessage(data.messages[i])
+      this.handleMessage(data.messages[i])
     }
     res.send({
       statusCode: 200,
