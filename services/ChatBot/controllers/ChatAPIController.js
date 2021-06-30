@@ -22,7 +22,7 @@ export class ChatAPIController {
     const author = message.author; //ex. 17472822486@c.us 
     const mobile = author.replace("@c.us", "");
     const body = message.body;
-    const chatId = message.id;
+    const chatId = message.chatId;
     const senderName = message.senderName;
     if(message.fromMe)return; 
 
