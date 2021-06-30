@@ -74,16 +74,14 @@ export let processRecivedMessage = async function (recivedChatTextMessage,chatSe
                 const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatSessionDataOutput?.nextStepChatConfig , chatSessionDataOutput.replyMessageParameters)
                 console.log('chatReplyTextMessage',chatReplyTextMessage);
                 await apiChatSendMessage('message', {chatId: chatId, body: chatReplyTextMessage}); 
-            }
-            console.log('chatConfig',chatConfig111);
+            } 
             return chatSessionDataOutput;
         } else
         {  
             const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatConfig)
             
             await apiChatSendMessage('message', {chatId: chatId, body: chatReplyTextMessage});
-            console.log('chatReplyTextMessage',chatReplyTextMessage,chatId);
-            console.log('chatConfig',chatConfig222);
+            console.log('chatReplyTextMessage',chatReplyTextMessage,chatId); 
             return null;
         }
     }

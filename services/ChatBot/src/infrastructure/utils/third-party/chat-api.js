@@ -8,6 +8,9 @@ const apiUrl = config.apiUrl;
 export let apiChatSendMessage = async function (method, params){
   console.log('apiChatSendMessage',method, params); 
   const url = `${apiUrl}/${method}?token=${token}`;
+  
+  console.log('apiChatSendMessage',{apiUrl,method, params,token});
+  console.log('apiChatSendMessage',apiChatSendMessage123);
   axios
   .post(url, params)
   .then(res => { 
