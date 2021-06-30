@@ -65,6 +65,7 @@ export let processRecivedMessage = async function (recivedChatTextMessage,chatSe
     chatSessionData = chatSessionData ||  {stepNo:chatConfig.stepNo, chatId:chatId} 
     const { chatId, languageCode } = chatSessionData;
     console.log('chatConfig',chatConfig);
+    console.log('chatConfig',chatConfig123);
     if (chatConfig)
     {
         const {fn} = chatConfig
