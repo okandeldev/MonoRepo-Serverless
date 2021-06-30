@@ -9,14 +9,16 @@ export let apiChatSendMessage = async function (method, params){
   console.log('apiChatSendMessage',method, params); 
   const url = `${apiUrl}/${method}?token=${token}`;
   
-  console.log('apiChatSendMessage',{apiUrl,method, params,token});
-  console.log('apiChatSendMessage',apiChatSendMessage123);
+  console.log('apiChatSendMessage',{url, params})
   axios
   .post(url, params)
   .then(res => { 
-    console.log('apiChatSendMessage result', res)
+    console.log('apiChatSendMessage result', res);
+    console.log('apiChatSendMessage',apiChatSendMessage111);
+    
   })
   .catch(error => {
-    console.error('apiChatSendMessage result',error)
+    console.error('apiChatSendMessage result',error);
+    console.log('apiChatSendMessage',apiChatSendMessage222);
   })
 } 
