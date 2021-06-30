@@ -5,20 +5,15 @@ const token = config.token;
 const apiUrl = config.apiUrl;  
 
 //post chat-api message to client  
-export let apiChatSendMessage = async function (method, params){
-  console.log('apiChatSendMessage',method, params); 
-  const url = `${apiUrl}/${method}?token=${token}`;
-  
-  console.log('apiChatSendMessage',{url, params})
+export let apiChatSendMessage = async function (method, params){ 
+  const url = `${apiUrl}/${method}?token=${token}`; 
   await axios
   .post(url, params)
   .then(res => { 
-    console.log('apiChatSendMessage result', res);
-    console.log('apiChatSendMessage',apiChatSendMessage111);
+    console.log('apiChatSendMessage result', res); 
     
   })
   .catch(error => {
-    console.error('apiChatSendMessage result',error);
-    console.log('apiChatSendMessage',apiChatSendMessage222);
+    console.error('apiChatSendMessage result',error); 
   })
 } 
