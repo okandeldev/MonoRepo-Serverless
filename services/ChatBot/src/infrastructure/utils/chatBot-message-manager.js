@@ -76,7 +76,7 @@ export let processRecivedMessage = async function (recivedChatTextMessage,chatSe
                 await apiChatSendMessage('message', {chatId: chatId, body: chatReplyTextMessage}); 
             }
             console.log('chatSessionDataOutput',chatSessionData,chatSessionDataOutput, functions[fn], recivedChatTextMessage);
-            console.log('chatReplyTextMessage 111',aaaa);
+  
             return chatSessionDataOutput;
         } else
         {  
