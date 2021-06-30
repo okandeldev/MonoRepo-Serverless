@@ -10,7 +10,7 @@ export let apiChatSendMessage = async function (method, params){
   const url = `${apiUrl}/${method}?token=${token}`;
   
   console.log('apiChatSendMessage',{url, params})
-  axios
+  await axios
   .post(url, params)
   .then(res => { 
     console.log('apiChatSendMessage result', res);
