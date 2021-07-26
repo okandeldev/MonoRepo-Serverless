@@ -21,6 +21,8 @@ let commonChatBotMessageParam ={
 // Params  :   languageCode, Chat Step Configuration Message
 // returns :   Chat text message
 function initiateChatTextMessageWithParameters(languageCode,{message},otherMessageParam={}){
+    console.log('otherMessageParam_otherMessageParam', otherMessageParam);
+  
     localization.setLocale(languageCode || constants.defaultLanguage.isoCode);
     const {key,params} = message
     let mappedParams = []
