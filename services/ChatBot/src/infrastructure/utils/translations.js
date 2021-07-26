@@ -21,7 +21,7 @@ export let localization = new Localize({
         "ar": ""
     },
     "P_chatbot_verifyProductName_NameWithManyProducts": {
-        "en-us": "Do you need \n $[1]",
+        "en-us": "Do you need \n $[1] ?",
         "ar": ""
     },
     "P_chatbot_verifyProductName_ValidNameButNotExistsInOrder": {
@@ -45,7 +45,7 @@ export let localization = new Localize({
         "ar": ""
     },
     "P_chatbot_reviewOrder": {
-        "en-us": "Your order contains: \n $[1] \n Do you want to confirm the order 1- Confirm \n 2- Edit or add to order",
+        "en-us": "Your order contains: \n $[1] \n Do you want to confirm the order 1- Confirm \n 2- Edit or add to order ?",
         "ar": ""
     },
     "P_chatbot_editProducts": {
@@ -57,7 +57,7 @@ export let localization = new Localize({
         "ar": ""
     },
     "P_chatbot_noOrderButHasDraft": {
-        "en-us": "Welcome $[1] , \n You can contact us with $[2] \n You can complete order from the website $[3] \n You have added these products for your order: \n $[4] \n Do you need 1- Confirm order 2- Edit or add in order",
+        "en-us": "Welcome $[1] , \n You can contact us with $[2] \n You can complete order from the website $[3] \n You have added these products for your order: \n $[4] \n Do you need 1- Confirm order 2- Edit or add in order?",
         "ar": ""
     },
     "P_chatbot_sendSupplierOfferToClient": {
