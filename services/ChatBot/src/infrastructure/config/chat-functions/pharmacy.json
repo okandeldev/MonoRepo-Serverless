@@ -92,7 +92,9 @@
     "description": "Product name valid but not exists in the order",
     "message": {
       "key": "P_chatbot_verifyProductName_ValidNameButNotExistsInOrder",
-      "params": []
+      "params": [
+        "product"
+      ]
     },
     "fn": "verifyProductQuantity"
   },
