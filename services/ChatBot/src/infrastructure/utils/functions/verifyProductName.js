@@ -77,7 +77,7 @@ export async function verifyProductName (recivedChatTextMessage,chatSessionData)
         }
         //Name Matches suggested Products
         else  if (!matchedProduct   && suggestedProducts?.length >0 ){ 
-            replyMessageParameters['products'] = suggestedProducts.map((item)=> item.name + '<br/>')
+            replyMessageParameters['products'] = suggestedProducts.map((item)=> item.name + ' \n')
             chatSessionData.cartItem = null
             const nextStepChatConfig = getChatConfig({key:'P_chatbot_verifyProductName_NameWithManyProducts'})
             return {
