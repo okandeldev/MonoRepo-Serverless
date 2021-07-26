@@ -14,7 +14,7 @@ export async function verifyProductName (recivedChatTextMessage,chatSessionData)
     const cart = await chatBotService.getPhamarcyUserCart(user.id)
     let replyMessageParameters = {} 
  
-    const RejectionList = [...constants.ChatRecievedMessage.Accept,...constants.ChatRecievedMessage.Accept];
+    const RejectionList = [...constants.ChatRecievedMessage.Accept];
     let isRejection =  RejectionList.some((rx) => new RegExp(rx, 'i').test(recivedChatTextMessage));  
     if (isRejection) { 
         let nextStepChatConfig;  
