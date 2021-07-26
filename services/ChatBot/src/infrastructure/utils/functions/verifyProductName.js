@@ -18,8 +18,8 @@ export async function verifyProductName (recivedChatTextMessage,chatSessionData)
     let isRejection =  RejectionList.some((rx) => new RegExp(rx, 'i').test(recivedChatTextMessage));  
     if (isRejection) { 
         let nextStepChatConfig;  
+        const cart = await chatBotService.getPhamarcyUserCart(user.id) 
         if ((chatSessionData.isEditing)){ 
-            const cart = await chatBotService.getPhamarcyUserCart(user.id)
             replyMessageParameters['products'] = cart.CartItems.map((item)=> `${item.quantity} ${item.productName} \n`).join('')
            
             nextStepChatConfig= getChatConfig({key: 'P_chatbot_reviewOrder'})
@@ -27,7 +27,10 @@ export async function verifyProductName (recivedChatTextMessage,chatSessionData)
                 chatSessionData.cartItem = null 
             }
 
-        } else { 
+        } else if (cart.CartItems.length ==0 ){
+            nextStepChatConfig= getChatConfig({key: 'P_chatbot_enterNewProductName'})
+        }   
+        else { 
             nextStepChatConfig= getChatConfig({key: 'P_chatbot_enterNotes'})
         }
         return {
@@ -77,7 +80,7 @@ export async function verifyProductName (recivedChatTextMessage,chatSessionData)
         }
         //Name Matches suggested Products
         else  if (!matchedProduct   && suggestedProducts?.length >0 ){ 
-            replyMessageParameters['products'] = suggestedProducts.map((item,index)=> (suggestedProducts.length === index + 1) ?  item.name : item.name + ' \n')
+            replyMessageParameters['products'] = suggestedProducts.map((item)=> item.name + ' \n')
             chatSessionData.cartItem = null
             const nextStepChatConfig = getChatConfig({key:'P_chatbot_verifyProductName_NameWithManyProducts'})
             return {
