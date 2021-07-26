@@ -25,7 +25,7 @@ export let localization = new Localize({
         "ar": ""
     },
     "P_chatbot_verifyProductName_ValidNameButNotExistsInOrder": {
-        "en-us": "How many boxes Panadol extra you need? \n Enter 0 if you need to change the product",
+        "en-us": "How many boxes $[1] you need? \n Enter 0 if you need to change the product",
         "ar": ""
     },
     "P_chatbot_verifyProductName_ValidNameAndExistsInOrder": {
