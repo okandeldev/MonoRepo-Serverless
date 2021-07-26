@@ -40,6 +40,7 @@ export async function verifyProductQuantity (recivedChatTextMessage,chatSessionD
                 const res = await chatBotService.AddPhamarcyUserCartItem(user.id,productVariantId, productName, enteredQuantity, note)
                 
             } 
+            chatSessionData.cartItem = null;  
         }
         
         const nextStepChatConfig = getChatConfig({key:'P_chatbot_enterNewProductName'})
