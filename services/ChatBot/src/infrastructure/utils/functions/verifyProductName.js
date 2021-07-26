@@ -67,6 +67,7 @@ export async function verifyProductName (recivedChatTextMessage,chatSessionData)
             {   
                 var productVariantId = matchedProduct.ProductVariants[0].id
                 const productName =  matchedProduct.name
+                replyMessageParameters['product'] = productName
                 chatSessionData.cartItem = { productVariantId, productName, quantity:1, note:''}
                 const nextStepChatConfig = getChatConfig({key:'P_chatbot_verifyProductName_ValidNameButNotExistsInOrder'})
                 return {

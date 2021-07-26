@@ -15,6 +15,7 @@ let commonChatBotMessageParam ={
     order_code:"",
     order_cost:"",
     products:"", 
+    product:"", 
 } 
  
 //initiate ChatMessage With Parameters
