@@ -61,6 +61,7 @@ async AddPhamarcyUserCartItem(pharmacyUserId,productVariantId,productName, quant
     httpMethod:'POST',
     body:payload
   });
+  console.log('1111111111111',payload,result.Payload);
   return JSON.parse(JSON.parse(result.Payload).body).data  
 } 
 

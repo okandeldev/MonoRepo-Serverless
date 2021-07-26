@@ -7,6 +7,8 @@ export class cartItemService {
   }
 
   async createCartItem(data) {
+    
+  console.log('0000000',data);
     let cart = await this.cartRepository.getPhamarcyUserCart(data.userId)
     if (!cart) {
       cart = await this.cartRepository.createCart({pharmacyUserId:data.userId})
