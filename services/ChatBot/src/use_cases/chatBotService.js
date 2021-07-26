@@ -48,7 +48,7 @@ export class chatBotService {
 
 async AddPhamarcyUserCartItem(pharmacyUserId,productVariantId,productName, quantity,note) {  
   const payload = { 
-    "pharmacyUserId" : pharmacyUserId,
+    "userId" : pharmacyUserId,
     "cartItem": { 
       "productVariantId": productVariantId,
       "productName": productName,
