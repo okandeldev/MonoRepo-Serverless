@@ -30,11 +30,10 @@ export class ChatAPIController {
     
     await this.mongoDao.insertOne("chatbotAPI", {chatId,author,mobile,chatSessionData}); 
     chatSessionData = chatSessionData ||  {chatId:chatId}   
-    const updatedChatSessionData = await processRecivedMessage(body,chatSessionData);
-    if (updatedChatSessionData) {
-      // chatSessionData = updatedChatSessionData || chatSessionData
-      await this.chatBotService.updateAuthorChatBotSessionData(author,updatedChatSessionData.chatSessionData); 
-    }
+    const updatedChatSessionData = await processRecivedMessage(body,chatSessionData); 
+    // chatSessionData = updatedChatSessionData || chatSessionData
+    await this.chatBotService.updateAuthorChatBotSessionData(author,updatedChatSessionData.chatSessionData); 
+     
     
     await this.mongoDao.insertOne("chatbotAPI", updatedChatSessionData); 
   }
