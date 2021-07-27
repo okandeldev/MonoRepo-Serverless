@@ -1,5 +1,6 @@
 const {getChatConfig} = require('../chatBot-message-manager')
 import { container, setup } from '../../config/di-setup'
+import { constants } from '../../config/constants'
 
 // Params  :  recivedChatTextMessage , chatSessionData
 // returns :  {
@@ -13,8 +14,12 @@ export async function verifyCartNote (recivedChatTextMessage,chatSessionData) {
     let replyMessageParameters = {}
     const chatBotService = container.resolve("chatBotService");
      
-    // Add Notes to Cart
-    await chatBotService.SavePhamarcyUserCart(user.Cart.id,recivedChatTextMessage)
+    const RejectionList = [...constants.ChatRecievedMessage.Accept];
+    let isRejection =  RejectionList.some((rx) => new RegExp(rx, 'i').test(recivedChatTextMessage));  
+    if (!isRejection) {  // Add Notes to Cart
+        await chatBotService.SavePhamarcyUserCart(user.Cart.id,recivedChatTextMessage)
+    }
+   
     const cart = await chatBotService.getPhamarcyUserCart(user.id)
     replyMessageParameters['products'] = cart.CartItems.map((item)=> `${item.quantity} ${item.productName} \n`).join('')
      
