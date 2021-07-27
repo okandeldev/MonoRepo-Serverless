@@ -32,7 +32,7 @@ export class ChatAPIController {
     chatSessionData = chatSessionData ||  {chatId:chatId}   
     const updatedChatSessionData = await processRecivedMessage(body,chatSessionData); 
     // chatSessionData = updatedChatSessionData || chatSessionData
-    await this.chatBotService.updateAuthorChatBotSessionData(author,updatedChatSessionData.chatSessionData); 
+    await this.chatBotService.updateAuthorChatBotSessionData(author,updatedChatSessionData?.chatSessionData); 
      
     
     await this.mongoDao.insertOne("chatbotAPI", updatedChatSessionData); 
