@@ -25,7 +25,7 @@ export let localization = new Localize({
         "ar": ""
     },
     "P_chatbot_verifyProductName_ValidNameButNotExistsInOrder": {
-        "en-us": "How many boxes $[1] you need? \n Enter 0 if you need to change the product",
+        "en-us": "How many boxes of \"$[1]\" you need? \n Enter 0 if you need to change the product",
         "ar": ""
     },
     "P_chatbot_verifyProductName_ValidNameAndExistsInOrder": {
@@ -45,7 +45,7 @@ export let localization = new Localize({
         "ar": ""
     },
     "P_chatbot_reviewOrder": {
-        "en-us": "Your order contains: \n $[1] \n Do you want to confirm the order 1- Confirm \n 2- Edit or add to order ?",
+        "en-us": "Your order contains: \n $[1] \n Do you want to confirm the order \n 1- Confirm \n 2- Edit or add to order ?",
         "ar": ""
     },
     "P_chatbot_editProducts": {
