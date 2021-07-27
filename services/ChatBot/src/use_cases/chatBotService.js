@@ -149,9 +149,15 @@ async checkoutPhamarcyUserCart(pharmacyUserId) {
   // Update Chat Bot User Session Data
   // Params  :  author = user Identifier, data = session data 
   async updateAuthorChatBotSessionData(author,data) {  
-    await this.mongoDao.findOneAndUpdate(constants.mongoCollections.chatBotSession,{author:author}, {$set: {
-     ...data
-    }}, {upsert: true}); 
+    if (data){
+      await this.mongoDao.findOneAndUpdate(constants.mongoCollections.chatBotSession,{author:author}, {$set: {
+        ...data
+       }}, {upsert: true}); 
+    }else 
+    {
+      await this.mongoDao.findOneAndDelete(constants.mongoCollections.chatBotSession,{author:author});
+    }
+ 
   }
 
 }

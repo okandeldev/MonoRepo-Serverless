@@ -31,7 +31,8 @@ export async function reviewOrder (recivedChatTextMessage,chatSessionData) {
             chatSessionData:{
                 ...chatSessionData,
                 stepNo:nextStepChatConfig.stepNo
-            }
+            },
+            clearChatSessionData:true 
         } 
     }else if (isEditCartProducts)
     {

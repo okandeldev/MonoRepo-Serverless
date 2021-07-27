@@ -66,3 +66,25 @@ export let findOneAndUpdate =   async function findOneAndUpdate(collectionName, 
       client.close();
   }
 }
+
+export let findOneAndDelete =   async function findOneAndDelete(collectionName, query = {}) {
+    const client = await MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true })
+        .catch(err => { console.log(err); });
+  
+    if (!client) {
+        return;
+    }
+  
+    try {  
+        const db = client.db(databaseName);
+        let collection = db.collection(collectionName);
+    
+        let tasks = await collection.findOneAndDelete(query);
+        return tasks;
+  
+    } catch (err) {
+        console.log('Error', err);
+    } finally {
+        client.close();
+    }
+  }
