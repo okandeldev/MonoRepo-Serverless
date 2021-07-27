@@ -72,7 +72,7 @@ export let processRecivedMessage = async function (recivedChatTextMessage,chatSe
     {
         const {fn} = chatConfig
         if (functions[fn] && functions[fn] != ""){  
-            const chatSessionDataOutput = await functions[fn](recivedChatTextMessage,chatSessionData)
+            let chatSessionDataOutput = await functions[fn](recivedChatTextMessage,chatSessionData)
             if (chatSessionDataOutput?.nextStepChatConfig){
                 const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatSessionDataOutput?.nextStepChatConfig , chatSessionDataOutput.replyMessageParameters)
                 console.log('chatReplyTextMessage',chatReplyTextMessage);
