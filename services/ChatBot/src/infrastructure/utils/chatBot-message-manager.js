@@ -80,7 +80,7 @@ export let processRecivedMessage = async function (recivedChatTextMessage,chatSe
             }
             console.log('chatSessionDataOutput',chatSessionData,chatSessionDataOutput, functions[fn], recivedChatTextMessage);
   
-            return (chatSessionDataOutput.clearChatSessionData)? null : chatSessionDataOutput;
+            return (chatSessionDataOutput?.clearChatSessionData)? null : chatSessionDataOutput;
         } else
         {  
             const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatConfig) 
