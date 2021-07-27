@@ -79,8 +79,13 @@ export let processRecivedMessage = async function (recivedChatTextMessage,chatSe
                 await apiChatSendMessage('message', {chatId: chatId, body: chatReplyTextMessage}); 
             }
             console.log('chatSessionDataOutput',chatSessionData,chatSessionDataOutput, functions[fn], recivedChatTextMessage);
-  
-            return (chatSessionDataOutput?.clearChatSessionData)? null : chatSessionDataOutput;
+            if ((chatSessionDataOutput?.chatSessionData?.clearChatSessionData)){
+                chatSessionDataOutput = {
+                    ...chatSessionDataOutput,
+                    chatSessionData:null
+                }
+            }    
+            return chatSessionDataOutput;
         } else
         {  
             const chatReplyTextMessage = initiateChatTextMessageWithParameters(languageCode, chatConfig) 
