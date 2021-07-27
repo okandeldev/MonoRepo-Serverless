@@ -30,9 +30,9 @@ export async function reviewOrder (recivedChatTextMessage,chatSessionData) {
             replyMessageParameters,
             chatSessionData:{
                 ...chatSessionData,
-                stepNo:nextStepChatConfig.stepNo
-            },
-            clearChatSessionData:true 
+                stepNo:nextStepChatConfig.stepNo,
+                clearChatSessionData:true 
+            }
         } 
     }else if (isEditCartProducts)
     {
