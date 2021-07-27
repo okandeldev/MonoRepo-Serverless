@@ -9,11 +9,11 @@ export let localization = new Localize({
         "ar": ""
     },
     "P_chatbot_hasOrderNoDraft": {
-        "en-us": "Welcome to $[1] pharmacy, \n You can track your order from this link \n $[2] \n You can create order from the website $[3] \n You can contact us with $[4] \n Or enter the product name",
+        "en-us": "Welcome $[1] pharmacy, \n You can track your order from this link \n $[2] \n You can create order from the website $[3] \n You can contact us with $[4] \n Or enter the product name",
         "ar": ""
     },
     "P_chatbot_noOrderNoDraft": {
-        "en-us": "Welcome to $[1] pharmacy, \n You can create order from the website $[2] \n You can contact us with $[3] \n Or enter the product name",
+        "en-us": "Welcome $[1] pharmacy, \n You can create order from the website $[2] \n You can contact us with $[3] \n Or enter the product name",
         "ar": ""
     },
     "P_chatbot_verifyProductName_InvalidName": {

@@ -29,7 +29,6 @@ export async function verifyProductQuantity (recivedChatTextMessage,chatSessionD
         if (enteredQuantity == 0){ 
             // remove from Cart
             const {productVariantId} = chatSessionData.cartItem;
-            chatSessionData.cartItem = {productVariantId,c:cart.CartItems};  
             const cartItem = cart.CartItems.filter(x=> x.productVariantId == productVariantId); 
             if (cartItem.length >0){   
                 await chatBotService.RemovePhamarcyUserCartItem(cartItem[0].id)
@@ -40,9 +39,8 @@ export async function verifyProductQuantity (recivedChatTextMessage,chatSessionD
                 const res = await chatBotService.AddPhamarcyUserCartItem(user.id,productVariantId, productName, enteredQuantity, note)
                 
             } 
-            chatSessionData.cartItem = null;  
         }
-        
+        chatSessionData.cartItem = null;  
         const nextStepChatConfig = getChatConfig({key:'P_chatbot_enterNewProductName'})
         return {
             nextStepChatConfig,

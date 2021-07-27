@@ -26,7 +26,7 @@ export class CartItemController {
 
   async deleteCartItem(req, res) {
     const id = req.body.id;
-    const cartItem = await this.cartItemService.deleteCartItem(id);
+    const cartItem = await this.cartItemService.deleteCartItem({id});
     if (cartItem) {
       res.send({
         statusCode: 200,
