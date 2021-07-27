@@ -16,7 +16,7 @@ export async function verifyCartNote (recivedChatTextMessage,chatSessionData) {
      
     const RejectionList = [...constants.ChatRecievedMessage.Reject];
     let isRejection =  RejectionList.some((rx) => new RegExp(rx, 'i').test(recivedChatTextMessage));  
-    if (!isRejection) {  // Add Notes to Cart
+    if (isRejection) {  // Add Notes to Cart
         recivedChatTextMessage=""
     }
     await chatBotService.SavePhamarcyUserCart(user.Cart.id,recivedChatTextMessage)
