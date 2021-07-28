@@ -25,6 +25,7 @@ export class ChatAPIController {
     const chatId = message.chatId;
     const senderName = message.senderName;
     if(message.fromMe)return; 
+    if((new Date(0)).setUTCSeconds(message.time+1000) < new Date())return; 
 
     let chatSessionData = await this.chatBotService.getAuthorChatBotSessionData(chatId,author,mobile);
     
